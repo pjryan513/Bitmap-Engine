@@ -175,6 +175,3 @@ void initUtilSegs(int comp){
 		}
 	}
 }
-
-
-

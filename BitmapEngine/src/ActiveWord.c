@@ -71,4 +71,3 @@ void printActive(activeWord *print){
 		printf("Flag: %d\tSeg: %x\n",print->flag[i],print->seg[i]);
 	}
 }
-
