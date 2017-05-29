@@ -53,6 +53,13 @@ elif (active.value == 0):
     vec.back() += 31
   else:
     vec.push_back(active.value)
+elif (all 31 bits of active.value are one):
+  if (vec.back() = active.value)
+    vec.back() = (3 << 30 + 62)
+  elif (vec.back() >> 30 == 3 && ((vec.back() << 2) >> 2) < 2**30 -31)
+    vec.back() += 31
+  else:
+    vec.push_back(active.value)
           </code></pre>
         </div>
 
