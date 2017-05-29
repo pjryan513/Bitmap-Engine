@@ -3,18 +3,60 @@
   <head>
     <link rel="stylesheet" href="./materialize/css/materialize.css">
     <meta charset="utf-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+
+    <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700,900&amp;subset=latin-ext" rel="stylesheet">
 
     <title>Word-aligned Hybrid Run-length Code</title>
+    <style media="screen">
+      body {
+        font-family: 'Source Code Pro', monospace;
+        font-size: 16pt;
+      }
+    </style>
   </head>
   <body>
     <div class="section">
       <div class="container">
-        <h1>Word-aligned hybrid run-length code</h1>
+        <h3 style="text-align:center">Word-aligned hybrid run-length code</h3>
+<!--
+        Research Article Title : Notes on Design and Implementation of Compressed Bit Vectors Authors : Kesheng Wu, Ekow J. Otoo, Arie Shoshani, Henrik Nordberg Date : September 27, 2001 -->
+        <ul style="text-align:centst;">
+          <li><b>Article Title </b>: Notes on Design and Implementation of Compressed Bit Vectors</li>
+          <li><b>Authors</b> : Kesheng Wu, Ekow J, Otoo, Arie Shoshani, Henrik Nordberg</li>
+          <li><b>Date</b> : September 27, 2001</li>
+        </ul>
 
-
-        <div class="card-panel">
-          <p>This scheme is a modification of the previous one. A restriction is imposed on teh fill words so that each fill word can be turned into integer number of literal words. We see this as the essence of the alignment requirement. In the previous section, we reviewed three byte-aligned schemes. In each case, a fill is required to be multiple bytes in length. A naive definition of word-alignment may be taken as the fill seizes have to be integer number of words. Using a word contains 32 bits as example, we may require all fill words to represent multiple of 32 bits. Since each literal HRL word contains 32 useful bits, this causes bitwise logical operations between a fill word and a literal word to leave off an arbitrary number of excess bits. This will lead to the same problem that slows down the HRL scheme. To avoid this problem, all fill words need to have multiple of 31 bits. We call the HRL, scheme with this extra requirement the <b>word-aligned hybrid run-length code</b>, or WAH for short</p>
+        <!-- paragraph one -->
+        <div id="p1" class="card-panel"style="background-color:lightblue;">
+          <h4>p1</h4>
+          <p>This scheme is a modification of the previous one. A restriction is imposed on the fill words so that each fill word can be turned into integer number of literal words. We see this as the essence of the alignment requirement. In the previous section, we reviewed three byte-aligned schemes. In each case, a fill is required to be multiple bytes in length. A naive definition of word-alignment may be taken as the fill seizes have to be integer number of words. Using a word contains 32 bits as example, we may require all fill words to represent multiple of 32 bits. Since each literal HRL word contains 32 useful bits, this causes bitwise logical operations between a fill word and a literal word to leave off an arbitrary number of excess bits. This will lead to the same problem that slows down the HRL scheme. To avoid this problem, all fill words need to have multiple of 31 bits. We call the HRL, scheme with this extra requirement the <b>word-aligned hybrid run-length code</b>, or WAH for short</p>
         </div>
+
+        <div id="p2" class="card-panel" style="background-color:lightblue;">
+          <h4>p2</h4>
+          <p>Assuming a bit sequence is feed into a WAH bit vector one bit at a time, the incoming bits will be accumulated in the active word initially. This active word will always contain less than 31 useful bits. Once the active word is full, i.e., having 31 bits, we store it as a regular literal word unless these bits are part of a long fill. In order to be part of a long fill, all the bits in the active word must be the same and same as the preceeding fill. This fill can appear either as a fill word or as a literal word. When it is a literal word, all the bits in the literal word must be the same and the same as the bits in the active word. The process of appejnding a full active word is captured in the following pseudocode segment. The WAH bit vector will also have a STL vector container and an active word, similar to an HRL bit vector.</p>
+
+          <!-- TODO : insert algorithm 5 from page 20 -->
+          <pre><code class="language-python">
+# Algorithm 5, Append a full active word to vec of a WAH bit vector
+# (Operators << and >> indicate bitwise left and right shift)
+
+if (vec isEmpty()):
+  vec.push_back(active.value)
+elif (active.value == 0):
+  if (vec.back() == 0):
+    vec.back() = (1 << 31) + 62
+  elif (vec.back() >> 30 == 2 && ((vec.back( << 2) >> 2) < 2**30 - 31)):
+    vec.back() += 31
+  else:
+    vec.push_back(active.value)
+          </code></pre>
+        </div>
+
+
       </div>
     </div>
   </body>
