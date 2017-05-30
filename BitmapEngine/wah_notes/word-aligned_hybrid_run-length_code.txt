@@ -1,0 +1,14 @@
+review paper, notes on Design and Implementation of Cross...
+review code (written by alexia)
+design a system (no-coding, models, uml)
+code the system (first trivial implementation in python, next real-world implementation in C)
+merge the system into Alexia's system
+test, record
+optimize
+test, record
+optimize
+test, record
+optimize
+test, record
+optimize
+research paper (win or fail?)
