@@ -12,11 +12,10 @@ let div = document.createElement("div")
 div.id = "paragraph_controller"
 div.class = "controller"
 // set its position to fixed
-div.style = "position:fixed;width:190px;height:600px;background-color:lightblue;left:50px;top:50px;border:2px solid black;"
+div.style = "position:fixed;width:10%;height:90%;background-color:lightblue;left:50px;top:50px;border:2px solid black;"
 
 // append the controller to the DOM
 body.appendChild(div)
-
 
 // collapse_unordered_list.data-collapsible = "accordion"
 // collapse_unordered_list.data-collapsible = "accordion"
@@ -59,18 +58,21 @@ while(null != curr_element){
   // for each paragraph, create a sub_div and append it to the control ul
   let sub_div = document.createElement("div")
 
-
   sub_div.style = "margin: 2px 2px 2px 2px; background-color:white;"
-  let li = document.createElement("li")
-  // li.appendChild(document.createTextNode("para : " + i))
-  // sub_div.appendChild(li)
+
   sub_div.appendChild(document.createTextNode("para : " + i))
 
   // ul.appendChild(li)
   div.appendChild(sub_div)
 
 
-  console.log(rect)
+  sub_div.addEventListener("click", function(){
+    // console.log()
+    window.scrollTo(0,rect.top)
+  })
+
+
+  console.log('rect top :', rect.top)
   ++i
   curr_element = document.getElementById(x(i))
 }

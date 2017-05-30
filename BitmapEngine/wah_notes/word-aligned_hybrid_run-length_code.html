@@ -6,7 +6,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/highlight.min.js"></script>
     <script>hljs.initHighlightingOnLoad();</script>
-
+    <!-- <script type="text/javascript" src="node_modules/jQuery/lib/node-jquery.js"></script> -->
+    <!-- <script
+  src="https://code.jquery.com/jquery-3.2.1.js"
+  integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+  crossorigin="anonymous"></script> -->
     <link href="https://fonts.googleapis.com/css?family=Source+Code+Pro:400,500,600,700,900&amp;subset=latin-ext" rel="stylesheet">
 
 
@@ -73,25 +77,33 @@ elif (all 31 bits of active.value are one):
           <h4>p3</h4>
           <p>This scheme may use more computer words than HRL to represent the same bit sequence. In particular, every fill word in this scheme is likely to be smaller than the corresponding fill word in the previous one, the bits not represented in teh fill words will appear as parts of literal words. If a bit sequence is represented by only one fill word in the HRL code (plus a few bits in the active word), it is likely that the HRL fill word willk be represented as a shorter WAH fill plus a literal word in a WAH bit vector. In this special case, the WAH bit vector has twice as many code words as the HRL bit vector. However, this extreme case hardly ever occurs in practice. In many cases, a HRL bit vector contains alternating fill words and literal words. In a typical case, when HRL fill word is turned into a WAH fill word, a few bits are pushed into the ensuing literal word and the literal word needs to pass the same number of bits to the next word. Often, the extra bits pushed out of a literal word can be integrated into the next fill. This makes it possible for WAH fill to be slightly longer than HRL fill. In our tests, the average fill length of WAH bit vector is about the same as the HRL bit vector. We typically see the WAH scheme uses less than one percent more space than the HRL scheme. </p>
 
-
+          <!-- this paragraph has an image, append the image -->
           <script type="text/javascript">
             var p3 = document.getElementById('p3')
             let container = document.getElementById('container')
             let section = document.getElementById('section')
             let img = document.createElement('img')
-            // console.log(p3.style)
-            // console.log('container width : ', container.max-width)
-
-            // console.log('section width : ', section)
             img.src = "./images/wah_bitvector.png"
             img.style = "width:100%;height:auto;"
             p3.appendChild(img)
 
           </script>
-          <script type="text/javascript" src="itc.js"></script>
-          <!-- <img style="height:50px" src="./images/wah_bitvector.png" alt=""> -->
         </div>
 
+
+        <div id="p4" class="card-panel" style="background-color:lightblue;">
+          <h4>p4</h4>
+          <p><b>Figure 13</b> shows a WAH bit vector. Compared with HRL, the fill run stored in the third word only represeents 62 bits rather than 66 bits. The four bits not represented..</p>
+
+        </div>
+        <div id="p5" class="card-panel" style="background-color:lightblue;">
+          <h4>p5</h4>
+        </div>
+        <div id="p6" class="card-panel" style="background-color:lightblue;">
+          <h4>p6</h4>
+        </div>
+
+        <script type="text/javascript" src="itc.js"></script>
       </div>
     </div>
   </body>
