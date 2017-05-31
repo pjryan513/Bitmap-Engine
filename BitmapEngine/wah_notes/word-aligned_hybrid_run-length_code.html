@@ -130,7 +130,7 @@ nBits = 0
         </div>
         <div id="p5" class="card-panel" style="background-color:lightblue;">
           <h4>p5</h4>
-          <p>The same process shown in Algorithm 3 can beused to perform bitwise logical operations on WAH bit vectors. One difference is that WAH, literal words are processed one at a time.</p>
+          <p>The same process shown in Algorithm 3 can beused to perform bitwise logical operations on WAH bit vectors. One difference is that WAH, literal words are processed one at a time. This makes the number of iterations of the while loop in Algorithm 3 exactly equal to the number of code words generated as the result of the logical operations. In each iteration of the algorithm, either a literal word or a fill word is generated and needs to be appended to the vector container vec. The process of appending a literal and a fill word are descripbed in Algorithm 5 and 6. When executing the two algorithms, the main cost is in executing the nexted if-tests. Since the two have similar if-tests, they should take about the same amout of time. To simplify the discussion on the complexity of the logical operations, we assume that it takes the same amount of time to append a literal word or a fill word to a list of regular code words in vec. It is easy to see that this assumption is applicable to most other compressed bit vector schemes except HRL and gzip. </p>
         </div>
         <div id="p6" class="card-panel" style="background-color:lightblue;">
           <h4>p6</h4>
