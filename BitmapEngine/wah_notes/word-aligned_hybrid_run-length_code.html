@@ -143,7 +143,7 @@ nBits = 0
           <br>
           <img style="display:block; margin:auto" src="./images/p6_01.png">
           <br>
-          
+
           When x.vec and y.vec are known, it is easy to determine the actual number of iterations. Let's define nx(i) to be length of the bit sequence represented by x.vec[0] ... x.vec[i] and define ny(i) similarly. Compare all nx(i) against all ny(i). Every time there is a match, Algorithm 3 consumes two code words, one word from each operand. If there are m matches, the total number of iterations is :
           <br>
           <br>
@@ -152,6 +152,14 @@ nBits = 0
 
         </div>
 
+        <!-- paragraph 7 -->
+        <div id="p7" style="background-color:lightblue;" class="card-panel" >
+          <h4>p7</h4>
+          <p><b>Proposition 1</b> Given that the test bit sequences are generated randomly, if Nx + Ny is less than M, the number of matches m would be much smaller than Nx + Ny. Therefore, the total number of iterations is nearly Nx + Ny.
+            <br>
+            The above arguments show that a logical operation needs to invoke Algorithm 5 and 6 about Nx + Ny times. This is expected to be the most expensive part of the operation. The next time consuming part is to decode the code words of x and y. (The function should be similar to the decode function shown on line 30 of Algorithm 3.) Overakk, if x and y represent reasonably sparse bit sequences, we expect the logical operation time to be proportional to the total number of words in the two bit vectors. As the bit sequences become less compressible, the logical operation time shopuld approach a maximum value.
+          </p>
+        </div>
         <script type="text/javascript" src="itc.js"></script>
       </div>
     </div>
