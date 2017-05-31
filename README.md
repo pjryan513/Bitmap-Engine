@@ -1,5 +1,5 @@
 # Bitmap Engine
-Original code contribution by ![aingerson](https://github.com/aingerson/Bitmap-Engine) as a research assistant under the direction of Professor D.Chiu.
+Original code contribution by [aingerson](https://github.com/aingerson/Bitmap-Engine) as a research assistant under the direction of Professor D.Chiu.
 ## Execution instructions
   First Navigate to the BitmapEngine/src/ directory...
   ... there you'll find a Makefile, so issue :
