@@ -1,3 +1,7 @@
+
+
+
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -93,11 +97,40 @@ elif (all 31 bits of active.value are one):
 
         <div id="p4" class="card-panel" style="background-color:lightblue;">
           <h4>p4</h4>
-          <p><b>Figure 13</b> shows a WAH bit vector. Compared with HRL, the fill run stored in the third word only represeents 62 bits rather than 66 bits. The four bits not represented..</p>
+          <p><b>Figure 13</b> shows a WAH bit vector. Compared with HRL, the fill run stored in the third word only represeents 62 bits rather than 66 bits. The four bits not represented in the fill run are pushed to the next literal run and there are five bits in the active word, see the last two words. In this particular example, WAH and HRL use the same amount of space.</p>
+
+          <pre><code class="language-python">
+# Algorithm 6, Append a fill to the vector container vec of a WAH bit vector
+# Let fillbit denote the fill bits and nBits denote the number of bits in the incoming fill.
+# (Assuming active.nbits = 0)
+if (vec is not empty()):
+  if (fillBit == 0):
+    if vec.back() == 0:
+      nBits += 31
+      vec.pop_back()
+    elif (vec.back() >> 30 == 2):
+      nBits += ((vec.back() << 2) >> 2)
+      vec.pop_back()
+  else:
+    if (vec.back() == ((2**31) -1)):
+      nBits += 31
+      vec.pop_back()
+    elif (vec.back() >> 30 == 3)
+      nBits += ((vec.back() << 2) >> 2)
+      vec.pop_back()
+
+while (nBits > (2**30/31) * 31):
+  vec.push_bac(((2 + fillBit) << 30) + (2**30/31) * 31)
+  nBits -= (2*30/31) * 31
+vec.push_back(((2 + fillBit) << 30) + nBits)
+nBits = 0
+</code></pre>
+
 
         </div>
         <div id="p5" class="card-panel" style="background-color:lightblue;">
           <h4>p5</h4>
+          <p>The same process shown in Algorithm 3 can beused to perform bitwise logical operations on WAH bit vectors. One difference is that WAH, literal words are processed one at a time.</p>
         </div>
         <div id="p6" class="card-panel" style="background-color:lightblue;">
           <h4>p6</h4>
