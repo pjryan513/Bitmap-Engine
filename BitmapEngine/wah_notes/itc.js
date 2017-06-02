@@ -19,7 +19,6 @@ body.appendChild(div)
 
 // collapse_unordered_list.data-collapsible = "accordion"
 // collapse_unordered_list.data-collapsible = "accordion"
-
 /////////////////////////////////////
 // <ul class="collapsible" data-collapsible="accordion">
 //     <li>
@@ -36,15 +35,12 @@ body.appendChild(div)
 //     </li>
 //   </ul>
 /////////////////////////////////////
-
 /*
  * loop through the paragraphs
  *    for each paragraph create a paragraph_portal
  *    append each paragraph_portal to the controller
  *    add an event listener to each paragraph_portal
  *    (the event listener will navigate to the corresponding paragraph's y axis offset in the window)
- *
- *
  */
 
 // return the number of paragraph elements contained in the document
@@ -59,16 +55,14 @@ let counter = function(){
 }
 
 
-let div_lst = []
-
+// let div_lst = []
 let div_dict = {}
 
 let i = 1
 let curr_element = document.getElementById(x(i))
 // while we still have a p# element, do {}
 while(null != curr_element){
-  console.log(curr_element) // log to console the curr element for testing
-
+  // console.log(curr_element) // log to console the curr element for testing
   // access the positional data of each paragraph
   let rect = curr_element.getBoundingClientRect()
 
@@ -82,16 +76,13 @@ while(null != curr_element){
   // ul.appendChild(li)
   // div.appendChild(sub_div)
 
-
-
+  // add event listener
   sub_div.addEventListener("click", function(){
-    // console.log()
     window.scrollTo(0,rect.top)
   })
 
-  div_lst.push(sub_div)
+  // make
   div_dict[i] = sub_div
-  console.log(sub_div)
   console.log('rect top :', rect.top)
   ++i
   curr_element = document.getElementById(x(i))
@@ -111,8 +102,8 @@ var num_paragraphs = counter()
 // XXX test print XXX
 console.log('number of paragraphs : ', num_paragraphs)
 
-//
-let height_of_sub_div = (controller_rect.height/num_paragraphs) -6
+
+let height_of_sub_div = (controller_rect.height/num_paragraphs) -5
 
 
 
