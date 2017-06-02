@@ -83,7 +83,7 @@ elif (all 31 bits of active.value are one):
             let container = document.getElementById('container')
             let section = document.getElementById('section')
             let img = document.createElement('img')
-            img.src = "./images/wah_bitvector.png"
+            img.src = "./BitmapEngine/wah_notes/images/wah_bitvector.png"
             img.style = "width:100%;height:auto;"
             p3.appendChild(img)
 
@@ -137,13 +137,13 @@ nBits = 0
           <p>The total time spent in a bitwise logical operation should be proportional to the number of iterations it goes through the <i>while</i> loop starting at line 5 of Algorithm 3. Let M be the maximum number of words it takes to represent any bit sequence containing the same number of bits as x.vec, let Nx be the actual number of code words in x.vec and Ny be the actual number of code words in y.vec. Since each iteration of Algorithm 3 at least consumes one code word from either x or y. The number of iterations is in the range of :
           <br>
           <br>
-          <img style="display:block; margin:auto" src="./images/p6_01.png">
+          <img style="display:block; margin:auto" src="./BitmapEngine/wah_notes/images/p6_01.png">
           <br>
 
           When x.vec and y.vec are known, it is easy to determine the actual number of iterations. Let's define nx(i) to be length of the bit sequence represented by x.vec[0] ... x.vec[i] and define ny(i) similarly. Compare all nx(i) against all ny(i). Every time there is a match, Algorithm 3 consumes two code words, one word from each operand. If there are m matches, the total number of iterations is :
           <br>
           <br>
-          <img style="display:block; margin:auto" src="./images/p6_02.png">
+          <img style="display:block; margin:auto" src="./BitmapEngine/wah_notes/images/p6_02.png">
           </p>
 
         </div>
