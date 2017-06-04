@@ -1,9 +1,13 @@
 #include "VALQuery.h"
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
 #include "SegUtil.h"
 #include "QueryUtil.h"
+
+
+#include <stdio.h>
+#include "Core.h"
+
+// #include <stdlib.h>
+// #include <math.h>
 
 /**
  * Performs AND between col0 and col1 and saves result into ret

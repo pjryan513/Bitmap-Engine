@@ -5,6 +5,7 @@
 // #include <time.h>
 
 #include "Core.h"
+
 #include "RawBitmapReader.h"
 #include "Query.h"
 #include "Writer.h"

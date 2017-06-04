@@ -1,8 +1,8 @@
 #include "ActiveWord.h"
-#include <stdio.h>
-#include <stdlib.h>
 #include "Control.h"
 
+#include <stdio.h>
+#include <stdlib.h>
 /**
  * Allocates memory for activeWord that tracks segment data for word of length s
  * Returns pointer to the activeWord struct

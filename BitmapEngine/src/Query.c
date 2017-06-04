@@ -1,16 +1,20 @@
 #include <stdio.h>
-#include <stdlib.h>
+
 #include "Query.h"
 #include "Control.h"
 #include "SegUtil.h"
 #include "Vars.h"
-#include <sys/stat.h>
-#include <unistd.h>
-#include <string.h>
 #include "WAHQuery.h"
 #include "VALQuery.h"
-#include <pthread.h>
 #include "RawBitmapReader.h"
+
+#include "Core.h"
+
+// #include <stdlib.h>
+// #include <sys/stat.h>
+// #include <unistd.h>
+// #include <string.h>
+// #include <pthread.h>
 
 int *range1;//list of all columns in first range
 int *range2;//list of all columns in second range
