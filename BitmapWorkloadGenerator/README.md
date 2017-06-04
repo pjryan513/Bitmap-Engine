@@ -10,3 +10,7 @@ Otherwise you can compile the java files directly by issuing
 > $ java WorkloadMain
 > $ ls \*.txt
 > bitmap_out_gc.txt  bitmap_out.txt  query_out.txt
+
+Note, this process outputs three separate files, the first is a raw bit array of 32-bit bitstrings (bitmap_out.txt).
+The second is the bitmap_out_gc.txt file which is a file containing the grey code-ordered bitmap.
+Last is the query_out.txt which is a file containing queries that relate to the bitmap that's generated.

@@ -1,19 +1,24 @@
 #include <stdio.h>
-#include <stdlib.h>
+
 #include "Control.h"
 #include "Vars.h"
 #include "RawBitmapReader.h"
-#include <sys/stat.h>
-#include <unistd.h>
-#include <pthread.h>
 #include "SegUtil.h"
 #include "BlockSeg.h"
 #include "WAHCompressor.h"
 #include "VALCompressor.h"
-#include <math.h>
 #include "Clock.h"
 #include "Writer.h"
-#include <string.h>
+#include "Core.h"
+
+// was able to remove these and compile
+// #include <sys/stat.h>
+// #include <unistd.h>
+// #include <pthread.h>
+// #include <math.h>
+// #include <string.h>
+// #include <stdlib.h>
+
 
 pthread_t *threads;//thread pointers
 char compressed_path[BUFF_SIZE];//the file location for the compressed files

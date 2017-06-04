@@ -1,14 +1,14 @@
+// #include <stdio.h>
+// #include <stdlib.h>
+// #include <math.h>
+// #include <string.h>
+// #include <time.h>
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
+#include "Core.h"
 #include "RawBitmapReader.h"
-#include <string.h>
-#include <time.h>
 #include "Query.h"
 #include "Writer.h"
 #include "Clock.h"
-//#include "VALQuery.h"
 
 /**
  * Runs formatter/compressor/query engines as set in Control.h
