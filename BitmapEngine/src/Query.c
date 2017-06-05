@@ -10,12 +10,6 @@
 
 #include "Core.h"
 
-// #include <stdlib.h>
-// #include <sys/stat.h>
-// #include <unistd.h>
-// #include <string.h>
-// #include <pthread.h>
-
 int *range1;//list of all columns in first range
 int *range2;//list of all columns in second range
 pthread_t *threads;//threads

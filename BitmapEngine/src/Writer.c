@@ -5,13 +5,6 @@
 
 #include "Core.h"
 
-// poss. remove cause Core.h
-// #include <stdlib.h>
-// #include <sys/stat.h>
-// #include <pthread.h>
-// #include <math.h>
-// #include <string.h>
-
 int numCols;//number of columns
 int max = 200;//maximum number of columns to build at once (cap on number of files open at once)
 

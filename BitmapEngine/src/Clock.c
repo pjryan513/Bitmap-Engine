@@ -3,9 +3,6 @@
 
 #include "Core.h"
 
-// #include <stdlib.h>
-// #include <sys/time.h>
-
 double rtclock(){
 	struct timezone Tzp;
 	struct timeval Tp;

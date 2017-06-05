@@ -11,15 +11,6 @@
 #include "Writer.h"
 #include "Core.h"
 
-// was able to remove these and compile
-// #include <sys/stat.h>
-// #include <unistd.h>
-// #include <pthread.h>
-// #include <math.h>
-// #include <string.h>
-// #include <stdlib.h>
-
-
 pthread_t *threads;//thread pointers
 char compressed_path[BUFF_SIZE];//the file location for the compressed files
 char col_path[BUFF_SIZE];//the path for the temporary column data files
