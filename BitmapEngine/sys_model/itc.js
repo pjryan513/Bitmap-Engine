@@ -12,7 +12,7 @@ let div = document.createElement("div")
 div.id = "paragraph_controller"
 div.class = "controller"
 // set its position to fixed
-div.style = "position:fixed;width:10%;height:90%;background-color:lightblue;left:50px;top:50px;border:2px solid black;"
+div.style = "position:fixed;width:10%;height:90%;background-color:#039be5;left:50px;top:50px;border:2px solid black;"
 
 // append the controller to the DOM
 body.appendChild(div)
