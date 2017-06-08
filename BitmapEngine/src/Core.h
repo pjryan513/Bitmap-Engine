@@ -7,6 +7,10 @@
 #include <pthread.h>
 #include <sys/stat.h>
 
+// #ifndef
+// research this
+// #endif
+
 // #include "ActiveWord.h"
 // #include "Clock.h"
 // #include "QueryData.h"

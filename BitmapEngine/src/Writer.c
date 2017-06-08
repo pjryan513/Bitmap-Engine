@@ -18,6 +18,8 @@ int reformat(char **file){
 	bitmap_file = *file;
 	printf("\nFile: %s\n",bitmap_file);
 
+	// printf("\ninside reformat func\n");
+
 	col_files = (FILE **) malloc(sizeof(FILE *) * max);//allocate file pointers
 	curr = (word_read *) malloc(sizeof(word_read) * max);
 
@@ -122,93 +124,107 @@ int toStriped(int num_threads){
  * Takes the BITMAP_FILE and reformats to unstriped file folder
  */
 int toUnstriped(){
+	printf("in tounstriped() function\n" );
 	FILE *fp = fopen(bitmap_file, "r");//try to open the original bitmap
-		if(fp == NULL){
-			fprintf(stderr,"\nCould not open %s for unstriped reformatting\n",bitmap_file);
-			return 0;
+	if(fp == NULL){
+		fprintf(stderr,"\nCould not open %s for unstriped reformatting\n",bitmap_file);
+		return 0;
+	} else {
+		char c;//the character we're scanning
+		numCols = 0;//counts number of columns
+		word_read one = 1;//used for bitwise operations (for longs)
+
+
+		// printf("\tin tounstriped() else block executed\n" );
+
+		// TODO : fix this while loop
+			// Professor Chiu,
+			// I've found the problematic line of code, it's found in BitmapEngine/src/Writer.c
+			// If you take look at the github repository, its around approximately line 138 of this Writer.c file.
+			// https://github.com/aingerson/Bitmap-Engine/blob/master/BitmapEngine/src/Writer.c
+			// Here's the line of code :
+			// while((c=getc(fp))!=',');//skip the row number and get to the actual data
+			// It seems to be an infinite while loop.
+		// while((c=getc(fp))!=','){printf("whaa");};//skip the row number and get to the actual data
+		// printf("\tin tounstriped() after first while\n" );
+		while((c=getc(fp))=='1' || c=='0'){
+			numCols++;//just go through the first row to see how many columns this file has
 		}
-		else{
-			char c;//the character we're scanning
-			numCols = 0;//counts number of columns
-			word_read one = 1;//used for bitwise operations (for longs)
+		fseek(fp,0,SEEK_SET);//go back to the beginning (for actually reading the data now)
 
-			while((c=getc(fp))!=',');//skip the row number and get to the actual data
-			while((c=getc(fp))=='1' || c=='0'){
-				numCols++;//just go through the first row to see how many columns this file has
+		char *col_folder=unstripedExt(bitmap_file);
+		strcat(col_folder,"/");
+
+		char col_path[BUFF_SIZE];
+		snprintf(col_path,BUFF_SIZE,"%s%s",col_folder,"col_\0");//this will eventually be the extension for each column file
+
+
+
+		mkdir(col_folder,S_IRWXU);//make the directory to hold all of the files
+		float n = (float)(numCols);
+		n /= (float)(max);
+		iterations = ceil(n);//number of times to iterate
+
+		//printf("Num cols: %d\tIter: %d\n",numCols,iterations);
+		int i;
+		for(i=0;i<iterations;i++){
+			//printf("Iteration %d\n",i);
+			fseek(fp,0,SEEK_SET);//go back to the beginning
+			int thisNumCols;//the number of columns we're reading in this iteration
+			if(i==iterations-1){
+				thisNumCols = numCols % max;
+				if(thisNumCols==0) thisNumCols=max;
 			}
-			fseek(fp,0,SEEK_SET);//go back to the beginning (for actually reading the data now)
+			else{
+				thisNumCols = max;
+			}
+			//printf("Scanning %d columns\n",thisNumCols);
 
-			char *col_folder=unstripedExt(bitmap_file);
-			strcat(col_folder,"/");
-
-			char col_path[BUFF_SIZE];
-			snprintf(col_path,BUFF_SIZE,"%s%s",col_folder,"col_\0");//this will eventually be the extension for each column file
-
-			mkdir(col_folder,S_IRWXU);//make the directory to hold all of the files
-			float n = (float)(numCols);
-			n /= (float)(max);
-			iterations = ceil(n);//number of times to iterate
-
-			//printf("Num cols: %d\tIter: %d\n",numCols,iterations);
-			int i;
-			for(i=0;i<iterations;i++){
-				//printf("Iteration %d\n",i);
-				fseek(fp,0,SEEK_SET);//go back to the beginning
-				int thisNumCols;//the number of columns we're reading in this iteration
-				if(i==iterations-1){
-					thisNumCols = numCols % max;
-					if(thisNumCols==0) thisNumCols=max;
-				}
-				else{
-					thisNumCols = max;
-				}
-				//printf("Scanning %d columns\n",thisNumCols);
-
-				int j;
-				for(j=0;j<thisNumCols;j++){//for every column we're building
-					int col = (i*max)+j;//this is the column number
-					//printf("\nCol %d\n",col);
-					if(col<numCols){//if this column exists
-						char buff[BUFF_SIZE];
-						snprintf(buff,BUFF_SIZE,"%scol_%d.dat",col_folder,col);//build the name of the column file for each column
-						col_files[j] = fopen(buff,"wb");//and open each file for writing
-						if(col_files[j]==NULL){
-							printf("COULD NOT OPEN FILE\t%s\n",buff);
-							break;
-						}
-						curr[j]=0;//start each first word empty
-					}
-					else{
+			int j;
+			for(j=0;j<thisNumCols;j++){//for every column we're building
+				int col = (i*max)+j;//this is the column number
+				//printf("\nCol %d\n",col);
+				if(col<numCols){//if this column exists
+					char buff[BUFF_SIZE];
+					snprintf(buff,BUFF_SIZE,"%scol_%d.dat",col_folder,col);//build the name of the column file for each column
+					col_files[j] = fopen(buff,"wb");//and open each file for writing
+					if(col_files[j]==NULL){
+						printf("COULD NOT OPEN FILE\t%s\n",buff);
 						break;
 					}
+					curr[j]=0;//start each first word empty
 				}
-				int r=0;//row counter
-				word_count=0;
-				while(1){
-					if(readRow(fp,&r,i)==0) break;//keep reading rows until it comes back unsuccessful
+				else{
+					break;
 				}
-
-				if(r!=0){//need to add padding (returned while in the middle of a word)
-					int k;
-					while(r!=(WORD_READ_LENGTH-1)){
-						for(k=0;k<thisNumCols;k++){
-							curr[k] <<= one;//shift over 1 (adds one 0 of padding)
-						}
-						r++;
-					}
-					for(k=0;k<thisNumCols;k++){//write each word to each column
-						fwrite(&(curr[k]),sizeof(word_read),1,col_files[k]);
-					}
-					word_count++;//we just wrote a word so count it
-				}
-
-				int k;
-				for(k=0;k<thisNumCols;fclose(col_files[k++]));//close each file
 			}
-			fclose(fp);//close the bitmap file pointers
-			free(col_folder);
-			return 1;//return where all the striped files are saved
+			int r=0;//row counter
+			word_count=0;
+			while(1){
+				if(readRow(fp,&r,i)==0) break;//keep reading rows until it comes back unsuccessful
+			}
+
+			if(r!=0){//need to add padding (returned while in the middle of a word)
+				int k;
+				while(r!=(WORD_READ_LENGTH-1)){
+					for(k=0;k<thisNumCols;k++){
+						curr[k] <<= one;//shift over 1 (adds one 0 of padding)
+					}
+					r++;
+				}
+				for(k=0;k<thisNumCols;k++){//write each word to each column
+					fwrite(&(curr[k]),sizeof(word_read),1,col_files[k]);
+				}
+				word_count++;//we just wrote a word so count it
+			}
+
+			int k;
+			for(k=0;k<thisNumCols;fclose(col_files[k++]));//close each file
 		}
+		fclose(fp);//close the bitmap file pointers
+		free(col_folder);
+		return 1;//return where all the striped files are saved
+	}
 		return 0;
 	}
 

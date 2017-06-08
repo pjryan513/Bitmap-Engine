@@ -8,15 +8,18 @@
 /**
  * Runs formatter/compressor/query engines as set in Control.h
  *
- * format:		F	BITMAP_FILE
+ * format:		F		BITMAP_FILE
  * compress:	C 	BITMAP_FILE		NUM_THREADS		STRIPED/UNSTRIPED
  * query: 		Q 	BITMAP_PATH		QUERY_FILE		NUM_THREADS
  *
  */
 int main(int argc, char*argv[]) {
+
 	setbuf(stdout,NULL);
 	if(argc>2 && (strcmp(argv[1],"F")==0 || strcmp(argv[1],"C")==0 || strcmp(argv[1],"Q")==0)){
+		// printf("correct num of args \n");
 		if(argc==3 && strcmp(argv[1],"F")==0){//FORMATTING
+			printf("formatting recognized\n");
 			if(reformat(&argv[2])==0){
 				printf("Unsuccessful reformatting of %s\n",argv[2]);
 			}

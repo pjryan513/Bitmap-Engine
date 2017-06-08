@@ -25,14 +25,7 @@
 //#define NUM_TRIALS 5
 #define PAR_READ 1
 
-//DEFINE HERE***************************************
-
-
-
-
-
-
-
+//DEFINE HERE*************************************
 #if COMPRESSION == WAH
 	#define FLAG_BITS 1
 	#if WORD_LENGTH == 32//WAH 32
