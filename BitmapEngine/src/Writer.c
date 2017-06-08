@@ -124,7 +124,7 @@ int toStriped(int num_threads){
  * Takes the BITMAP_FILE and reformats to unstriped file folder
  */
 int toUnstriped(){
-	printf("in tounstriped() function\n" );
+	// printf("in tounstriped() function\n" );
 	FILE *fp = fopen(bitmap_file, "r");//try to open the original bitmap
 	if(fp == NULL){
 		fprintf(stderr,"\nCould not open %s for unstriped reformatting\n",bitmap_file);
