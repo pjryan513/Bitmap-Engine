@@ -1,5 +1,11 @@
 // interactive table of contents
 
+let hidden = true
+if (window.innerWidth > 1358){
+  hidden = false
+}
+
+
 // take in an integer, return the corresponding paragraph id
 let x = function(i){
   return "p"+i
@@ -10,9 +16,14 @@ let body = document.getElementById("body")
 // create a paragraph_controller div
 let div = document.createElement("div")
 div.id = "paragraph_controller"
-div.class = "controller"
+div.class = "controller hide-on-med-and-down"
 // set its position to fixed
 div.style = "position:fixed;width:10%;height:90%;background-color:#039be5;left:50px;top:50px;border:2px solid black;"
+
+if (hidden) {
+  div.style = "position:fixed;width:10%;height:90%;background-color:#039be5;left:50px;top:50px;border:2px solid black;visibility:hidden;"
+}
+
 
 // append the controller to the DOM
 body.appendChild(div)
@@ -71,6 +82,10 @@ while(null != curr_element){
   sub_div.id = "sdp"+i // uniquely identify each sub div
   sub_div.style = "text-align:center;margin: 2px 2px 2px 2px; background-color:white;"
 
+  if (hidden) {
+    sub_div.style = "text-align:center;margin: 2px 2px 2px 2px; background-color:white;visibility:hidden;"
+  }
+
   sub_div.appendChild(document.createTextNode("p" + i))
 
   // ul.appendChild(li)
@@ -83,7 +98,7 @@ while(null != curr_element){
 
   // make
   div_dict[i] = sub_div
-  console.log('rect top :', rect.top)
+  // console.log('rect top :', rect.top)
   ++i
   curr_element = document.getElementById(x(i))
 }
@@ -95,17 +110,17 @@ let p_controller = document.getElementById("paragraph_controller")
 let controller_rect = p_controller.getBoundingClientRect()
 
 // XXX test print XXX
-console.log('controller rect : ', controller_rect.height)
+// console.log('controller rect : ', controller_rect.height)
 
 // determine the number of paragraphs by calling the counter method
 var num_paragraphs = counter()
 // XXX test print XXX
-console.log('number of paragraphs : ', num_paragraphs)
+// console.log('number of paragraphs : ', num_paragraphs)
 
 
 let height_of_sub_div = (controller_rect.height/num_paragraphs) -5
 
-
+console.log(window.innerWidth)
 
 
 i=1
@@ -118,8 +133,10 @@ while (null!= curr_element){
   // console.log(height_of_sub_div);
 
   let sd = div_dict[i]
-  console.log(sd)
+  // console.log(sd)
   sd.style = "text-align:center;background-color:white;height:"+height_of_sub_div+"px;margin:4px 4px 4px 4px;"
+
+  sd.class = "hide-on-med-and-down"
   div.appendChild(sd)
   // div.appendChild(sd)
   // div.appendChild(div_lst[i])
