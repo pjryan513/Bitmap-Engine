@@ -233,9 +233,9 @@ int toUnstriped(){
  */
 int readRow(FILE *fp,int *r,int iter){
 	char c;//character we're scanning
-	while((c=getc(fp))!=','){//skip the row number
-		if(c==EOF) return 0;//reached the end of the file so return that we were unsuccessful
-	}
+	// while((c=getc(fp))!=','){//skip the row number
+	// 	if(c==EOF) return 0;//reached the end of the file so return that we were unsuccessful
+	// }
 	int write = 0;//whether it's time to write or not
 	int thisNumCols;//the number of columns in this iteration
 	if(iter==iterations-1){
