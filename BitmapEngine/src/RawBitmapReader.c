@@ -128,6 +128,7 @@ double compress(char *file, int str, int form, int n){
 
 	// snprintf(uncompressed_path,BUFF_SIZE,"%s/col_",uncompressed_path);
 	// strcat(uncompressed_path, "/col_")
+	strcat(uncompressed_path, "/col_");
 	strcat(compressed_path, "/col_");
 
 
