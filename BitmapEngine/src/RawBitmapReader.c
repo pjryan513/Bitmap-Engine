@@ -126,8 +126,9 @@ double compress(char *file, int str, int form, int n){
 
 	mkdir(compressed_path,S_IRWXU);
 
-	snprintf(uncompressed_path,BUFF_SIZE,"%s/col_",uncompressed_path);
-	strcat(compressed_path,"col_");
+	// snprintf(uncompressed_path,BUFF_SIZE,"%s/col_",uncompressed_path);
+	// strcat(uncompressed_path, "/col_")
+	strcat(compressed_path, "/col_");
 
 
 	numCols = 0;
