@@ -126,8 +126,8 @@ double compress(char *file, int str, int form, int n){
 
 	mkdir(compressed_path,S_IRWXU);
 
+	// XXX - snprintf is not supported on some linux machines (according to professor chiu, so comment the snprintf() function call that was included by alexia)
 	// snprintf(uncompressed_path,BUFF_SIZE,"%s/col_",uncompressed_path);
-	// strcat(uncompressed_path, "/col_")
 	strcat(uncompressed_path, "/col_");
 	strcat(compressed_path, "/col_");
 
