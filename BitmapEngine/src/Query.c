@@ -1,12 +1,12 @@
 #include <stdio.h>
 
-#include "Query.h"
-#include "Control.h"
-#include "SegUtil.h"
-#include "Vars.h"
-#include "WAHQuery.h"
-#include "VALQuery.h"
-#include "RawBitmapReader.h"
+// #include "Query.h"
+// #include "Control.h"
+// #include "SegUtil.h"
+// #include "Vars.h"
+// #include "WAHQuery.h"
+// #include "VALQuery.h"
+// #include "RawBitmapReader.h"
 
 #include "Core.h"
 
