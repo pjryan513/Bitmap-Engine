@@ -77,7 +77,7 @@
         <div class="row">
           <ul class="collapsible popout" data-collapsible="expandable">
             <li>
-              <div class="collapsible-header active">
+              <div class="collapsible-header ">
                 <h4 style="font-family: 'Coiny', cursive;">Bitmap Workload Generator</h4>
               </div>
               <div class="collapsible-body">
@@ -109,7 +109,7 @@
                 <div class="row" style="margin-top:3%;" id="bitmap_brkt_append">
                   <div class="col s6">
                     <div class="card-image">
-                      <img style="width:100%;" src="./images/bitmap_out.png" id="bitmap_out">
+                      <img class="materialboxed" style="width:100%;" src="./images/bitmap_out.png" id="bitmap_out">
                       <span class="card-title">||||||||||||</span>
                     </div>
                     <div class="card-content">
@@ -119,28 +119,12 @@
                   <div class="col s2" id="right_angle_brkt_01" >
                     <span style="font-size:400%;">></span><span class="right-align" style="font-size:200%;position:relative;right:0px;">bitmap_out.txt</span>
                   </div>
-                  <script type="text/javascript">
-                    setTimeout(function(){
-                      let angle = document.getElementById("right_angle_brkt_01")
-                      let img = document.getElementById("bitmap_out")
-                      console.log(img.height)
-                      // let img_rect = img.getBoundingClientRect()
-                      // console.log(img_rect)
-                      let padding_top = (img.height/2) - (img.height/8)
-                      // angle.style = "padding-top:"+img.height/2+"px;"
-                      angle.style = "padding-top:"+padding_top+"px;"
 
-                      console.log(angle.style)
-                      document.getElementById("bitmap_brkt_append").appendChild(angle)
-                      // console.log(angle)
-
-                    }, 500)
-                  </script>
                 </div>
                 <div class="row" style="margin-top:3%;" id="bitmap_brkt_append2">
                   <div class="col s6">
                     <div class="card-image">
-                      <img style="width:100%;" src="./images/bitmap_out_gc.png" id="bitmap_out_gc">
+                      <img class="materialboxed" style="width:100%;" src="./images/bitmap_out_gc.png" id="bitmap_out_gc">
                       <span class="card-title">||||||||||||</span>
                     </div>
                     <div class="card-content">
@@ -156,7 +140,7 @@
                   <div class="col s6">
 
                       <div class="card-image">
-                        <img style="width:100%;" src="./images/query.png" id="query">
+                        <img class="materialboxed" style="width:100%;" src="./images/query.png" id="query">
                         <span class="card-title">||||||||||||</span>
                       </div>
                       <div class="card-content">
@@ -170,25 +154,7 @@
                   <div class="col s6">
 
                   </div>
-                  <script type="text/javascript">
-                  setTimeout(function(){
-                    let angle = document.getElementById("right_angle_brkt_02")
-                    let img = document.getElementById("bitmap_out_gc")
-                    let query_img = document.getElementById("query")
 
-                    console.log(img.height)
-                    let padding_top = (img.height/2) - (img.height/8)
-
-                    let query_padding_top = (query_img/2) - (query_img,height/8)
-
-                    console.log(angle.style)
-                    document.getElementById("bitmap_brkt_append2").appendChild(angle)
-                    document.getElementById("bitmap_brkt_append3").appendChild(angle)
-
-                    // console.log(angle)
-
-                  }, 500)
-                  </script>
                 </div>
                 <div class="row">
 
@@ -197,13 +163,13 @@
             </li>
 
             <li>
-              <div class="collapsible-header">
+              <div class="collapsible-header active">
                 <h4 style="font-family: 'Coiny', cursive;">Bitmap Formatting</h4>
               </div>
               <div class="collapsible-body">
                 <div class="row">
                   <div class="col s6">
-                    <p>Now that the bitmap files have been generated using the Bitmap Workload Generator, we can format our bitmap. In order to format the bitmap, first navigate to the BitmapEngine/src/ directory. </p>
+                    <p>Now that the bitmap files have been generated using the Bitmap Workload Generator, we can format our bitmap. In order to format the bitmap, first navigate to the BitmapEngine/src/ directory...</p>
                   </div>
                   <div class="col s6">
                     <pre><code language="bash">
@@ -220,7 +186,7 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
                 <div class="row">
                   <div class="col s6">
                     <p>
-                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                      This formatting process will generate a file structure in the BitmapWorkloadGenerator/src/ directory to represent the bitmap file (bitmap_out.txt).
                     </p>
                   </div>
                   <div class="col s6">
@@ -233,6 +199,19 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
 > 	STRIPING(4/4) BEGIN...COMPLETE
 > 	COMPLETE ALL
                     </code></pre>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <p>Navigating to the BitmapWorkloadGenerator/src directory and listing the contents that match the regular expression <b>bitmap_out.txt_*</b> will return a list of directories that are the result of the bitmap formatting process.</p>
+                    <pre><code language="bash">
+$ cd ../../BitmapWorkloadGenerator/src/
+$ ls bitmap_out.txt_*
+                    </code></pre>
+                  </div>
+                  <div class="col s6">
+                    <img class="materialboxed" src="images/bitmap_format.png" style="width:100%;" alt="">
+                    <p></p>
                   </div>
                 </div>
               </div>
@@ -326,12 +305,12 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
                   <div class="collapsible-header">
                     <h4>bit_out*.txt</h4>In /BitmapWorkloadGenerator/src dicectory there's a make file, running make will output two bitmap files titled : <b>bitmap_out.txt</b> and <b>bitmap_out_gc.txt</b>.</div>
                   <div class="collapsible-body">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                    <!-- <img src="./images/bit_map.png"  style="display:block; width:50%;" alt=""> -->
+                    <!-- <img class="materialboxed" src="./images/bit_map.png"  style="display:block; width:50%;" alt=""> -->
                     <div class="row">
                      <div class="col s12 m6">
                        <div class="card">
                          <div class="card-image">
-                           <img src="./images/bit_map.png">
+                           <img class="materialboxed" src="./images/bit_map.png">
                            <span class="card-title">bitmap_out.txt</span>
                          </div>
                          <div class="card-content">
@@ -346,7 +325,7 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
                      <div class="col s12 m6">
                        <div class="card">
                          <div class="card-image">
-                           <img src="./images/bit_map01.png">
+                           <img class="materialboxed" src="./images/bit_map01.png">
                            <span class="card-title">bitmap_out_gc.txt</span>
                          </div>
                          <div class="card-content">
@@ -369,7 +348,7 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
                     <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
                     <div class="card">
                       <div class="card-image">
-                        <img src="./images/query.png" alt="">
+                        <img class="materialboxed" src="./images/query.png" alt="">
                         <span class="card-title " style="right:0px;"> query_out.txt</span>
                         <!-- <h6>query_out.txt</h6> -->
                       </div>
@@ -390,7 +369,7 @@ $ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
         <div class="row">
           <div class="card-panel hoverable" id="p2">
             <h4>WAH Compressor</h4>
-            <img src="../wah_notes/images/wah_bitvector.png" style="display:block; margin:auto;width:100%;"alt="">
+            <img class="materialboxed" src="../wah_notes/images/wah_bitvector.png" style="display:block; margin:auto;width:100%;"alt="">
             <blockquote cite="http://">
               The WAH compressor...Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
             </blockquote>
