@@ -85,8 +85,9 @@ while(null != curr_element){
   if (hidden) {
     sub_div.style = "text-align:center;margin: 2px 2px 2px 2px; background-color:white;visibility:hidden;"
   }
-
-  sub_div.appendChild(document.createTextNode("p" + i))
+  // console.log(curr_element)
+  // console.log(curr_element.getAttribute("name"))
+  sub_div.appendChild(document.createTextNode(curr_element.getAttribute("name")))
 
   // ul.appendChild(li)
   // div.appendChild(sub_div)
