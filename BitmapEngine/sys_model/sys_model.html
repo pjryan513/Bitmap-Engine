@@ -147,45 +147,48 @@
                       <p></p>
                     </div>
                   </div>
+                  <div class="col s2" id="right_angle_brkt_02" >
+                    <span style="font-size:400%;">></span><span class="right-align" style="font-size:200%;position:relative;right:0px;">bitmap_out_gc.txt</span>
+                  </div>
 
                 </div>
-                <div class="row">
+                <div class="row" id="bitmap_brkt_append3">
                   <div class="col s6">
 
-                    <div class="col s6">
                       <div class="card-image">
-                        <img style="width:100%;" src="./images/bitmap_out_gc.png" id="bitmap_out_gc">
+                        <img style="width:100%;" src="./images/query.png" id="query">
                         <span class="card-title">||||||||||||</span>
                       </div>
                       <div class="card-content">
                         <p></p>
                       </div>
-                    </div>
 
-                    <div class="col s2" id="right_angle_brkt_02" >
-                      <span style="font-size:400%;">></span><span class="right-align" style="font-size:200%;position:relative;right:0px;">bitmap_out_gc.txt</span>
-                    </div>
-                    <script type="text/javascript">
-                      setTimeout(function(){
-                        let angle = document.getElementById("right_angle_brkt_02")
-                        let img = document.getElementById("bitmap_out_gc")
-                        console.log(img.height)
-                        // let img_rect = img.getBoundingClientRect()
-                        // console.log(img_rect)
-                        let padding_top = (img.height/2) - (img.height/8)
-                        // angle.style = "padding-top:"+img.height/2+"px;"
-                        // angle.style = "padding-top:"+padding_top+"px;"
-
-                        console.log(angle.style)
-                        document.getElementById("bitmap_brkt_append2").appendChild(angle)
-                        // console.log(angle)
-
-                      }, 500)
-                    </script>
+                  </div>
+                  <div class="col s2" id="right_angle_brkt_03" >
+                    <span style="font-size:400%;">></span><span class="right-align" style="font-size:200%;position:relative;right:0px;">query_out.txt</span>
                   </div>
                   <div class="col s6">
 
                   </div>
+                  <script type="text/javascript">
+                  setTimeout(function(){
+                    let angle = document.getElementById("right_angle_brkt_02")
+                    let img = document.getElementById("bitmap_out_gc")
+                    let query_img = document.getElementById("query")
+
+                    console.log(img.height)
+                    let padding_top = (img.height/2) - (img.height/8)
+
+                    let query_padding_top = (query_img/2) - (query_img,height/8)
+
+                    console.log(angle.style)
+                    document.getElementById("bitmap_brkt_append2").appendChild(angle)
+                    document.getElementById("bitmap_brkt_append3").appendChild(angle)
+
+                    // console.log(angle)
+
+                  }, 500)
+                  </script>
                 </div>
                 <div class="row">
 
