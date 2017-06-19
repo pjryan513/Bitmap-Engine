@@ -1,7 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "WAHQuery.h"
-#include "SegUtil.h"
+// #include "WAHQuery.h"
+// #include "SegUtil.h"
+#include "Core.h"
+
 
 /*
  * ANDs two columns together (col0 AND col1) and saves into ret arg

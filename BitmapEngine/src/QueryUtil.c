@@ -1,7 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "QueryUtil.h"
-#include "SegUtil.h"
+#include "Core.h"
+// #include "QueryUtil.h"
+// #include "SegUtil.h"
 
 /**
  * ORs the next 2 segments (2 fills) and stores result

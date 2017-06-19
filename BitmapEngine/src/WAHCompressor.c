@@ -1,8 +1,9 @@
 #include <stdlib.h>
 #include <stdio.h>
-#include "WAHCompressor.h"
-#include "Control.h"
-#include "SegUtil.h"
+// #include "WAHCompressor.h"
+// #include "Control.h"
+// #include "SegUtil.h"
+#include "Core.h"
 
 /*
  * Compresses one segment of a column
@@ -84,4 +85,3 @@ void compressUsingWAH(blockSeg *param){
 		fwrite(&(param->curr), sizeof(word_32),1,param->colFile);//write the last word
 	}
 }
-
