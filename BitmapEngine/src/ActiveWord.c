@@ -1,6 +1,6 @@
-#include "ActiveWord.h"
-#include "Control.h"
-
+// #include "ActiveWord.h"
+// #include "Control.h"
+#include "Core.h"
 #include <stdio.h>
 #include <stdlib.h>
 /**
