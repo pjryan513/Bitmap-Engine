@@ -1,13 +1,4 @@
 #include <stdio.h>
-
-// #include "Query.h"
-// #include "Control.h"
-// #include "SegUtil.h"
-// #include "Vars.h"
-// #include "WAHQuery.h"
-// #include "VALQuery.h"
-// #include "RawBitmapReader.h"
-
 #include "Core.h"
 
 int *range1;//list of all columns in first range

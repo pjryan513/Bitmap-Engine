@@ -10,7 +10,6 @@
 #include <pthread.h>
 #include <sys/stat.h>
 
-
 #include "ActiveWord.h"
 #include "Clock.h"
 #include "QueryData.h"
@@ -26,6 +25,5 @@
 #include "VALCompressor.h"
 #include "Vars.h"
 #include "WAHQuery.h"
-
 
 #endif /* CORE_H */

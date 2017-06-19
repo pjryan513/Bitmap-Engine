@@ -1,10 +1,5 @@
 #include "Core.h"
 
-// #include "RawBitmapReader.h"
-// #include "Query.h"
-// #include "Writer.h"
-// #include "Clock.h"
-
 /**
  * Runs formatter/compressor/query engines as set in Control.h
  *

@@ -1,8 +1,3 @@
-// #include "VALQuery.h"
-// #include "SegUtil.h"
-// #include "QueryUtil.h"
-
-
 #include <stdio.h>
 #include "Core.h"
 

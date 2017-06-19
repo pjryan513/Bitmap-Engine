@@ -1,14 +1,4 @@
 #include <stdio.h>
-
-// #include "Control.h"
-// #include "Vars.h"
-// #include "RawBitmapReader.h"
-// #include "SegUtil.h"
-// #include "BlockSeg.h"
-// #include "WAHCompressor.h"
-// #include "VALCompressor.h"
-// #include "Clock.h"
-// #include "Writer.h"
 #include "Core.h"
 
 pthread_t *threads;//thread pointers

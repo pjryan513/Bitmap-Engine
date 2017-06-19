@@ -1,4 +1,3 @@
-// #include "Clock.h"
 #include <stdio.h>
 
 #include "Core.h"

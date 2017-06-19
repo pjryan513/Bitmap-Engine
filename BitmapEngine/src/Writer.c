@@ -1,7 +1,4 @@
 #include <stdio.h>
-// #include "Control.h"
-// #include "Writer.h"
-// #include "RawBitmapReader.h"
 
 #include "Core.h"
 

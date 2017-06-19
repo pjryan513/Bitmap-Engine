@@ -1,4 +1,4 @@
-// #include "SegUtil.h"
+
 #include "Core.h"
 
 word_32 one = 1;//used for bitwise operations with longs/ints
