@@ -201,7 +201,40 @@
                 <h4 style="font-family: 'Coiny', cursive;">Bitmap Formatting</h4>
               </div>
               <div class="collapsible-body">
-
+                <div class="row">
+                  <div class="col s6">
+                    <p>Now that the bitmap files have been generated using the Bitmap Workload Generator, we can format our bitmap. In order to format the bitmap, first navigate to the BitmapEngine/src/ directory. </p>
+                  </div>
+                  <div class="col s6">
+                    <pre><code language="bash">
+$ pwd
+> .../BitmapEngine/src/
+$ ls ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+> ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+$ make
+> gcc -Wall -o main main.c ActiveWord.o Clock.o Query.o QueryUtil.o RawBitmapReader.o SegUtil.o VALCompressor.o VALQuery.o WAHCompressor.o WAHQuery.o Writer.o -lpthread -lm
+$ ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+                    </code></pre>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col s6">
+                    <p>
+                      Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    </p>
+                  </div>
+                  <div class="col s6">
+                    <pre><code language="bash">
+> File: ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+> 	UNSTRIPING BEGIN...COMPLETE
+> 	STRIPING(1/4) BEGIN...COMPLETE
+> 	STRIPING(2/4) BEGIN...COMPLETE
+> 	STRIPING(3/4) BEGIN...COMPLETE
+> 	STRIPING(4/4) BEGIN...COMPLETE
+> 	COMPLETE ALL
+                    </code></pre>
+                  </div>
+                </div>
               </div>
             </li>
 
