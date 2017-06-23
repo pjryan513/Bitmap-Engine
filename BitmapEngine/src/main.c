@@ -47,6 +47,9 @@ int main(int argc, char*argv[]) {
 			int n = atoi(argv[4]);
 			if(n<1) return -1;
 
+			// call run queries and pass in the bitmap compressed directory, the query_out.txt file path, and the number of threads (all provided as command line arguments)
+			runQueries(argv[2], argv[3], atoi(argv[4]));
+
 		}
 	}
 
