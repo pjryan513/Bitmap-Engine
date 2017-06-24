@@ -25,6 +25,7 @@ char *query_file;
  * Runs the designated file of queries on the bitmap file folder
  */
 void runQueries(char *folder, char *query, int n){
+	printf("\nrunQueries() is called\n");
 	query_file=query;
 	FILE *fp = fopen(query_file, "r");//open the query file
 	num_threads=n;
