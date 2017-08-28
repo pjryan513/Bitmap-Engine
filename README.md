@@ -2,19 +2,43 @@
 ### [github.io](https://alexander-io.github.io/Bitmap-Engine/)
 Original code contribution by [aingerson](https://github.com/aingerson/Bitmap-Engine) as a research assistant under the direction of Professor D.Chiu.
 
-## Execution instructions
-  First Navigate to the BitmapEngine/src/ directory...
-  ... there you'll find a Makefile, so issue :
-
-    $ make
-
-  ^ the above command will generate a number of object files as well as an executable called 'main'.
-
-  In order to remove the object files and the executable, issue :
-
-    $ make clean
-
-![BitMap Engine UML](./images/BitMap_Engine.png)
+## Linux Install & Execution instructions
+```bash
+# ensure Make, Java Developer Kit (JDK), and a C compiler are installed
+# from terminal
+git clone https://alexander-io.github.io/Bitmap-Engine/
+cd Bitmap-Engine/BitmapEngine/src
+make
+# > javac WorkloadMain.java
+# > java WorkloadMain
+# > ls *.txt
+# > bitmap_out_gc.txt  bitmap_out.txt  query_out.txt
+cd ../../BitmapEngine/src/
+make
+# > gcc -Wall -c ActiveWord.c
+# > gcc -Wall -c Clock.c
+# > gcc -Wall -c Query.c
+# > gcc -Wall -c QueryUtil.c
+# > gcc -Wall -c RawBitmapReader.c
+# > gcc -Wall -c SegUtil.c
+# > gcc -Wall -c VALCompressor.c
+# > gcc -Wall -c VALQuery.c
+# > gcc -Wall -c WAHCompressor.c
+# > gcc -Wall -c WAHQuery.c
+# > gcc -Wall -c Writer.c
+# > gcc -Wall -o main main.c ActiveWord.o Clock.o Query.o QueryUtil.o RawBitmapReader.o SegUtil.o VALCompressor.o VALQuery.o WAHCompressor.o WAHQuery.o Writer.o -lpthread -lm
+make format
+# > ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+# > formatting recognized
+# > 
+# > File: ../../BitmapWorkloadGenerator/src/bitmap_out.txt
+# > 	UNSTRIPING BEGIN...COMPLETE
+# > 	STRIPING(1/4) BEGIN...COMPLETE
+# > 	STRIPING(2/4) BEGIN...COMPLETE
+# > 	STRIPING(3/4) BEGIN...COMPLETE
+# > 	STRIPING(4/4) BEGIN...COMPLETE
+# > 	COMPLETE ALL
+```
 
 ## References
   Research Article Title :
