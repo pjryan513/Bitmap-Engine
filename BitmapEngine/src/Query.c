@@ -1,9 +1,15 @@
+
 #include <stdio.h>
 #include "Core.h"
 
 int *range1;//list of all columns in first range
 int *range2;//list of all columns in second range
 pthread_t *threads;//threads
+
+
+// XXX : copy pthread_t pointer
+pthread_t *threads_copy;
+
 pthread_mutex_t mut;//mutex lock
 int qid;//which query id we're currently executing
 int started1;//marks which threads haven't started yet (first range)
@@ -42,14 +48,15 @@ void runQueries(char *folder, char *query, int n){
 			fscanf(fp, "%d", &qid);//query id
 			getc(fp);//comma
 			range1 = parseRange(fp);//first range
-			getc(fp);//comma
 			range2 = parseRange(fp);//second range
 			executeQuery();
 			free(range1);
 			free(range2);
+			printf("\nfreed range 1 & 2\n");
 			c=getc(fp);//get new line
 		}
 	}
+
 }
 
 
@@ -150,19 +157,32 @@ void executeQuery(){
 			results2[h]->result[g]=cols[range2[ind]][g];
 		}
 
-		if(pthread_create(&threads[h],NULL,startRangeTwoThread,(void *)(&threadNum[h]))){
+		if(pthread_create(&threads_copy[h],NULL,startRangeTwoThread,(void *)(&threadNum[h]))){
 			printf("Error creating thread\n");
 			return;
 		}
 	}
 
+	printf("\nMADE IT HERE\n");
+
+
 	for(h=0;h<num_threads;h++){//wait for all the threads to finish
-		if(h==started2) break;//we never started this thread
-		if(pthread_join(threads[h],NULL)){
+		if(h==started2) {
+			printf("h equals started2\n");
+			break;//we never started this thread
+		}
+		printf("\nabout to 'ifjoin'\n");
+		if(pthread_join(threads_copy[h],NULL)){
 			printf("Error joining thread\n");
 			return;
 		}
+		printf("\nafter  'ifjoin'\n");
+
 	}
+
+
+	printf("\nMADE IT HERE 2\n");
+
 
 	for(h=1;h<num_threads;h++){//finish ORing all thread results together
 		if(h==started2) break;
@@ -174,6 +194,7 @@ void executeQuery(){
 			results2[0]->resultSize = OR_VAL(results2[0]->result,results2[0]->resultCopy,results2[0]->resultSizeCopy,results2[h]->result,results2[h]->resultSize);
 		}
 	}
+	printf("\nMADE IT HERE 3\n");
 
 	copyResult(results1[0]);
 	if(COMPRESSION==WAH){
@@ -189,6 +210,7 @@ void executeQuery(){
 		FILE *dest = fopen(buff,"wb");//this is the destination file for the query result
 		fwrite(results1[0]->result,sizeof(word_32),results1[0]->resultSize,dest);
 	}
+	printf("\nMADE IT HERE 4\n");
 }
 
 
@@ -225,6 +247,7 @@ void init(){
 	sz = (int *) malloc(sizeof(int)*n);//how many words are in each column (empty --> -1)
 	for(;n>=0;sz[--n]=-1);//no columns have been loaded
 	threads = (pthread_t *) malloc(sizeof(pthread_t) * num_threads);//allocate each thread pointer
+	threads_copy = (pthread_t *) malloc(sizeof(pthread_t) * num_threads);
 	if (pthread_mutex_init(&mut, NULL) != 0) printf("\n mutex init failed\n");
 	for(n=0;n<num_threads;n++) threadNum[n]=n;
 
@@ -307,6 +330,8 @@ void *startRangeOneThread(void *args){
 		}
 
 	}
+	printf("inside startRangeOneThread id:%d\n", *h);
+
 	return NULL;
 }
 
@@ -314,23 +339,41 @@ void *startRangeOneThread(void *args){
  * ORs all columns (assuming all are loaded) in range2
  */
 void *startRangeTwoThread(void *args){
+	printf("\nin start range two thread()\n");
 	int *h = (int *) (args);
 
 	int mark = 0;//keeps track of column in range currently being processed
+
+	printf("\n\t range two thread()\n");
+
 	if(range2[0]==1) return NULL;//point query
+	printf("\n\t\t range two thread()\n");
 
 	while(mark<=range2[0]){//as long as there are more columns to process
+		printf("\n\t\t\t while range two thread()\n");
+
 		pthread_mutex_lock(&mut);
 		mark = rangeIndex++;
 		pthread_mutex_unlock(&mut);
+
+		printf("\n\t\t\t\t after mutex lock range two thread()\n");
+
+
 		if(mark>range2[0]) return NULL;//no more columns to process
+		printf("\n\t\t\t\t\t after mark>range2 condition, range two thread()\n");
+
 		copyResult(results2[*h]);
 		if(COMPRESSION==WAH){
+			printf("\n\t\t\t\t\t\t compression==wah//true, range two thread()\n");
 			results2[*h]->resultSize = OR_WAH(results2[*h]->result, results2[*h]->resultCopy, results2[*h]->resultSizeCopy, cols[range2[mark]],sz[range2[mark]]);
+			printf("\n\t\t\t\t\t\t end compression==wah//true, range two thread()\n");
+
 		}
 		else if(COMPRESSION==VAL){
 			results2[*h]->resultSize = OR_VAL(results2[*h]->result, results1[*h]->resultCopy, results2[*h]->resultSizeCopy, cols[range2[mark]],sz[range2[mark]]);
 		}
+
 	}
+	printf("inside startRangeTwoThread id:%d\n", *h);
 	return NULL;
 }

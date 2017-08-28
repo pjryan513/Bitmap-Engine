@@ -84,17 +84,24 @@ int AND_WAH(word_32 *ret, word_32 *col0, int sz0, word_32 *col1, int sz1){
  * sz0 and sz1 are sizes of the columns we're ORing
  */
 int OR_WAH(word_32 *ret,word_32 *col0,int sz0, word_32 *col1, int sz1){
-		int c0=1;//track which word in col0 we're looking at
+		int c0=1;//track which word in col0 we're looki98 ng at
 		int c1=1;//track which word in col1 we're looking at
 		int d=0;//track which spot in the resulting array we're saving into
-
+		printf("\nin OR_WAH\n");
 		//get the first word from each column
 		word_32 w0 = col0[c0++];
+		printf("\n\tpre word_32 w1 = col1[c1++], in OR_WAH\n");
+		printf("\n\tc0:%d\t\tc1:%d\n\n", c0, c1);
+		// printf("\nc1:%d\n\n", c1);
 		word_32 w1 = col1[c1++];
+		printf("\n\tpost word_32 w1 = col1[c1++], in OR_WAH\n");
 
 		//and figure out their types (see type definition in SegUtil.h)
 		int t0 = getType(w0,WORD_LENGTH);
 		int t1 = getType(w1,WORD_LENGTH);
+
+
+
 
 		while(c0<=sz0 && c1<=sz1){
 			word_32 toAdd;//this is the resulting word from ORing w0 and w1
