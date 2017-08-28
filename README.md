@@ -13,6 +13,7 @@ make
 # > java WorkloadMain
 # > ls *.txt
 # > bitmap_out_gc.txt  bitmap_out.txt  query_out.txt
+
 cd ../../BitmapEngine/src/
 make
 # > gcc -Wall -c ActiveWord.c
@@ -27,10 +28,11 @@ make
 # > gcc -Wall -c WAHQuery.c
 # > gcc -Wall -c Writer.c
 # > gcc -Wall -o main main.c ActiveWord.o Clock.o Query.o QueryUtil.o RawBitmapReader.o SegUtil.o VALCompressor.o VALQuery.o WAHCompressor.o WAHQuery.o Writer.o -lpthread -lm
+
 make format
 # > ./main F ../../BitmapWorkloadGenerator/src/bitmap_out.txt
 # > formatting recognized
-# > 
+
 # > File: ../../BitmapWorkloadGenerator/src/bitmap_out.txt
 # > 	UNSTRIPING BEGIN...COMPLETE
 # > 	STRIPING(1/4) BEGIN...COMPLETE
@@ -38,6 +40,14 @@ make format
 # > 	STRIPING(3/4) BEGIN...COMPLETE
 # > 	STRIPING(4/4) BEGIN...COMPLETE
 # > 	COMPLETE ALL
+
+make compress_u
+# ./main C ../../BitmapWorkloadGenerator/src/bitmap_out.txt 1 UNSTRIPED
+# time: 0.003609...
+
+make compress_s
+# ./main C ../../BitmapWorkloadGenerator/src/bitmap_out.txt 1 STRIPED
+# time: 0.005010...
 ```
 
 ## References
