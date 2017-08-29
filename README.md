@@ -48,7 +48,20 @@ make compress_u
 make compress_s
 # ./main C ../../BitmapWorkloadGenerator/src/bitmap_out.txt 1 STRIPED
 # time: 0.005010...
+
+# OUT OF SERVICE
+make query_u
+
+# OUT OF SERVICE
+make query_s
+
 ```
+Please note, query functionality is NOT working. For future programmers, there's a potentially problematic section in BitmapEngine/src/WAHQuery.c.
+
+On line 93 there's this line :
+  word_32 w1 = col1[c1++];
+
+When issuing $ make query_u, a segmentation fault seems to occur at this line. This seems to be true because I've placed a print statement before and after, only the preceding printf() call makes it to standard out.
 
 ## References
   Research Article Title :
