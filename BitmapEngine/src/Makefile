@@ -41,3 +41,11 @@ query_s :
 clean:
 	rm main
 	rm *.o
+
+bintest:
+	gcc -Wall -c ActiveRun.c
+	gcc -Wall -o bintest binarytest.c ActiveRun.o
+
+cleantest:
+	rm -f *.o bintest
+	rm -f *.o 
