@@ -2,7 +2,7 @@
 
 
 //determines the type of run we are looking at
-int getHeadType(unsigned char header){
+int getHeadType(byte header){
 
 	/*unsigned char h_type4 = header >> 4;
 	unsigned char h_type3 = header >> 5;
@@ -27,20 +27,43 @@ int getHeadType(unsigned char header){
 	}
 }
 
+/*
+param: the current run in the form of an unsigned char *
+return: the number of counter bytes in the run
+*/
+int counterBytes(byte * run){
+	int pos = 1;
+	
+	while(run[pos] >> 7 != 0)
+	{
+		pos++;
+	}
 
-activeRun *initActiveRun(byte *col){
-    int i;
-    activeRun *curr_byte;
-    curr_byte->run_type = readHeader(col1[i]);
+	return pos;
+}
+
+void readHeader(byte header, activeRun * curr_run, int counter)
+{
+
+}
+
+
+activeRun *initActiveRun(byte *run){
+    activeRun *curr_run;
+    curr_byte->run_type = getHeadType(run[0]);
     if(run_type == 3 || run_type == 4){
-        int counters = counterBytes(col);
+        int counters = counterBytes(run);
         byte *header_array;
     }
+
+    readHeader(run, curr_run);
+    return curr_run;
+
 }
 
 
 
-printActiveByte(){
+void printActiveRun(activeRun * run){
 
 }
 
