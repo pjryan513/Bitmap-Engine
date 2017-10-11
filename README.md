@@ -2,7 +2,7 @@
 ### [github.io](https://alexander-io.github.io/Bitmap-Engine/)
 Original code contribution by [aingerson](https://github.com/aingerson/Bitmap-Engine) as a research assistant under the direction of Professor D.Chiu.
 
-This repo was forked from [github.io](https://alexander-io.github.io/Bitmap-Engine/) on 10/11/2017.  The purpose of this fork is for Patrick Ryan and Ian White to finish implementing BBC compression and querying.
+This repo was forked from (https://alexander-io.github.io/Bitmap-Engine/) on 10/11/2017.  The purpose of this fork is for Patrick Ryan and Ian White to finish implementing BBC compression and querying.
 
 ## Linux Install & Execution instructions
 ```bash
