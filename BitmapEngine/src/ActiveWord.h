@@ -13,7 +13,7 @@ typedef struct activeWord{
 	int decoding;//boolean marker to track if currently decoding a word
 } activeWord;
 
-activeWord *initActiveWord(int);
+activeWord *initActiveWord(byte *);
 void updateActiveWord(activeWord *,word_32);
 word_32 createWord(activeWord *);
 void freeActive(activeWord *);
