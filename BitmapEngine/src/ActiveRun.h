@@ -14,6 +14,9 @@ typedef struct activeRun{
 	unsigned int odd_pos;  //only used for type 2 and 4  
 	unsigned int fill_bit;
 	unsigned int fill_len;
+	int run_pos;			//the position of  the run starting at the header.  Based off the over all compressed bit sequence.
+	int tail_pos;			//the poisiton of the tail bytes based from run_pos.
+	unsigned int run_size;
 }activeRun;
 
 int getHeadType(byte);

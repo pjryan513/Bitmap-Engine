@@ -31,7 +31,7 @@ int getHeadType(byte header){
 param: the current run in the form of an unsigned char *
 return: the number of counter bytes in the run
 */
-unsigned int counterBytes(byte * run){
+unsigned int counterBytes(byte * run, activeRun *curr_run){
 	int pos = 1;
 	unsigned int f_len; //keeping it unsigned? I think this helps
 	do
@@ -42,60 +42,79 @@ unsigned int counterBytes(byte * run){
 		pos++;
 	}while(run[pos] >> 7 != 0);
 
+    curr_run->tail_pos = curr_run->run_pos + pos +1;
+
+    //storing the run size
+    curr_run->run_size = 1 + pos;
+
 	return f_len;
 }
 
 
-activeRun *initActiveRun(byte *run){
+activeRun *initActiveRun(byte *run, int run_start){
     activeRun *curr_run;
+
+    //store the run_pos
+    curr_run->run_pos = run_start;
 
     //storing the run in the acitve run
     curr_run->run_seq = run;
 
     //finding the type for the run
-    curr_run->run_type = getHeadType(run[0]);
+    curr_run->run_type = getHeadType(run[run_start]);
 
     //if the type is 3 or 4 then counter bytes follow the header byte.
     //need to read the counter bytes
     if(curr_run->run_type == 1)
     {
     	//getting the fill_bit for type 1
-    	byte bit_temp = run[0] << 1;
+    	byte bit_temp = run[run_start] << 1;
     	bit_temp >>=7;
     	curr_run->fill_bit = bit_temp;
 
     	//getting fill_len for type 1
-    	byte fill_temp = run[0] << 2;
+    	byte fill_temp = run[run_start] << 2;
     	fill_temp >>= 6;
     	curr_run->fill_len = fill_temp;
 
     	//getting tail_len for type 1
-    	byte tail_temp = run[0] << 4;
+    	byte tail_temp = run[run_start] << 4;
     	tail_temp >>= 4;
     	curr_run->tail_len = tail_temp;
+
+        //getting the physical run size
+        curr_run->run_size = 1 + curr_run->tail_len;
+
+        //getting tail_pos for type 1
+        curr_run->tail_pos = curr_run->run_pos+1;
     }
     else if(curr_run->run_type == 2)
     {
     	//getting the fill_bit for type 2
-    	byte bit_temp = run[0] << 2;
+    	byte bit_temp = run[run_start] << 2;
     	bit_temp >>=7;
     	curr_run->fill_bit = bit_temp;
 
     	//getting fill_len for type 2
-    	byte fill_temp = run[0] << 3;
+    	byte fill_temp = run[run_start] << 3;
     	fill_temp >>= 6;
     	curr_run->fill_len = fill_temp;
 
     	//getting odd_pos for type 1
-    	byte odd_temp = run[0] << 5;
+    	byte odd_temp = run[run_start] << 5;
     	odd_temp >>= 5;
     	curr_run->odd_pos = odd_temp;
+
+        //getting tail_pos for type 2
+        curr_run->tail_pos = curr_run->run_pos+1;
+
+        curr_run->run_size = 1;
 
     }
     else if(curr_run->run_type == 3)
     {
     	//getting fill_bit for type 3
-    	byte bit_temp = run[0] << 3;
+    	byte bit_temp = run[run_start] << 3;
     	bit_temp >>= 7;
     	curr_run->fill_bit = bit_temp;
 
@@ -103,14 +122,17 @@ activeRun *initActiveRun(byte *run){
         curr_run->fill_len = counterBytes(run);
 
      	//getting tail_len for type 3
-    	byte tail_temp = run[0] << 4;
+    	byte tail_temp = run[run_start] << 4;
     	tail_temp >>= 4;
     	curr_run->tail_len = tail_temp;   
+
+        //adding the tail len to run size
+        curr_run->run_size += curr_run->tail_len;
     }
     else if(curr_run->run_type == 4)
     {
     	//getting fill_bit for type 4
-		byte bit_temp = run[0] << 4;
+		byte bit_temp = run[run_start] << 4;
     	bit_temp >>= 7;
     	curr_run->fill_bit = bit_temp;
 
@@ -118,7 +140,7 @@ activeRun *initActiveRun(byte *run){
         curr_run->fill_len = counterBytes(run);
 
 		//getting odd_pos for type 4
-    	byte odd_temp = run[0] << 5;
+    	byte odd_temp = run[run_start] << 5;
     	odd_temp >>= 5;
     	curr_run->odd_pos = odd_temp;        
     }
