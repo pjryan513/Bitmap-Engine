@@ -34,16 +34,18 @@ return: the number of counter bytes in the run
 unsigned int counterBytes(byte * run){
 	int pos = 1;
 	unsigned int f_len; //keeping it unsigned? I think this helps
-	while(run[pos] >> 7 != 0)
+	do
 	{
+		unsigned int temp = run[pos] << 1;
+		temp >>= 1;
+		f_len = f_len + temp; //I believe we can add chars to ints
 		pos++;
-		f_len = f_len + run[pos]; //I believe we can add chars to ints
-	}
+	}while(run[pos] >> 7 != 0);
 
 	return f_len;
 }
 
-void readHeader(byte header, activeRun * curr_run)
+void readHeader(activeRun * curr_run)
 {
 
 }
@@ -53,7 +55,7 @@ activeRun *initActiveRun(byte *run){
     activeRun *curr_run;
     curr_byte->run_type = getHeadType(run[0]);
     if(run_type == 3 || run_type == 4){
-        curr_byte->fill-len = counterBytes(run);
+        curr_byte->fill_len = counterBytes(run);
         byte *header_array;
     }
 
