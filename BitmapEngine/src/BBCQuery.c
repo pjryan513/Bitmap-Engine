@@ -4,30 +4,7 @@
 
 
 bbcQuery(col_1, col_2, op){
-    //these are parameters to be used in our query engine. 
-    //They keep track of various bytes, properties, headers, etc.
-    char *col_1
-    char *col_2
-    curr_byte1
-    curr_byte2
-    curr_run1
-    curr_run2
-
-    //find smaller of these when comparing fills
-    fill_len1
-    fill_len2
-
-    //if either tail length is 0, get the next header/run
-    tail_len1
-    tail_len2
-    fill_bit1
-    fill_bit2
-
-    //in general, find the smaller of these, loop over this length
-    run_size1
-    run_size2
-    odd_pos_1
-    odd_pos_2
+   
     
     //below are some of the basic functions for bitwise operations we will be using. 
     //Hopefully somewhat self-explanatory

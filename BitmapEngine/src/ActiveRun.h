@@ -6,7 +6,7 @@
 #include "Control.h"
 
 
-typedef struct activeByte{
+typedef struct activeRun{
 	byte header;
 	unsigned int run_type;
 	byte *run_seq;
@@ -14,14 +14,14 @@ typedef struct activeByte{
 	unsigned int odd_pos;  //only used for type 2 and 4  
 	unsigned int fill_bit;
 	unsigned int fill_len;
-}
+}activeRun;
 
-int counterBytes(byte * run);
+int getHeadType(byte);
 
-activeRun *initActiveRun(byte *run);
+int counterBytes(byte *);
 
-void printActiveRun();
+activeRun *initActiveRun(byte *);
 
-void readHeader(byte header; activeRun * curr_run);
+void printActiveRun(activeRun *);
 
 #endif /* ACTIVEWORD_H_ */
