@@ -21,4 +21,6 @@ activeRun *initActiveRun(byte *run);
 
 void printActiveRun();
 
+void readHeader(byte header; activeRun * curr_run);
+
 #endif /* ACTIVEWORD_H_ */
