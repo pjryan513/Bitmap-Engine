@@ -45,28 +45,104 @@ unsigned int counterBytes(byte * run){
 	return f_len;
 }
 
-void readHeader(activeRun * curr_run)
-{
-
-}
-
 
 activeRun *initActiveRun(byte *run){
     activeRun *curr_run;
-    curr_byte->run_type = getHeadType(run[0]);
-    if(run_type == 3 || run_type == 4){
-        curr_byte->fill_len = counterBytes(run);
-        byte *header_array;
-    }
 
-    readHeader(run, curr_run);
+    //storing the run in the acitve run
+    curr_run->run_seq = run;
+
+    //finding the type for the run
+    curr_run->run_type = getHeadType(run[0]);
+
+    //if the type is 3 or 4 then counter bytes follow the header byte.
+    //need to read the counter bytes
+    if(curr_run->run_type == 1)
+    {
+    	//getting the fill_bit for type 1
+    	byte bit_temp = run[0] << 1;
+    	bit_temp >>=7;
+    	curr_run->fill_bit = bit_temp;
+
+    	//getting fill_len for type 1
+    	byte fill_temp = run[0] << 2;
+    	fill_temp >>= 6;
+    	curr_run->fill_len = fill_temp;
+
+    	//getting tail_len for type 1
+    	byte tail_temp = run[0] << 4;
+    	tail_temp >>= 4;
+    	curr_run->tail_len = tail_temp;
+    }
+    else if(curr_run->run_type == 2)
+    {
+    	//getting the fill_bit for type 2
+    	byte bit_temp = run[0] << 2;
+    	bit_temp >>=7;
+    	curr_run->fill_bit = bit_temp;
+
+    	//getting fill_len for type 2
+    	byte fill_temp = run[0] << 3;
+    	fill_temp >>= 6;
+    	curr_run->fill_len = fill_temp;
+
+    	//getting odd_pos for type 1
+    	byte odd_temp = run[0] << 5;
+    	odd_temp >>= 5;
+    	curr_run->odd_pos = odd_temp;
+
+    }
+    else if(curr_run->run_type == 3)
+    {
+    	//getting fill_bit for type 3
+    	byte bit_temp = run[0] << 3;
+    	bit_temp >>= 7;
+    	curr_run->fill_bit = bit_temp;
+
+    	//getting fill_len for type 3
+        curr_run->fill_len = counterBytes(run);
+
+     	//getting tail_len for type 3
+    	byte tail_temp = run[0] << 4;
+    	tail_temp >>= 4;
+    	curr_run->tail_len = tail_temp;   
+    }
+    else if(curr_run->run_type == 4)
+    {
+    	//getting fill_bit for type 4
+		byte bit_temp = run[0] << 4;
+    	bit_temp >>= 7;
+    	curr_run->fill_bit = bit_temp;
+
+    	//getting fill_len for type 4
+        curr_run->fill_len = counterBytes(run);
+
+		//getting odd_pos for type 4
+    	byte odd_temp = run[0] << 5;
+    	odd_temp >>= 5;
+    	curr_run->odd_pos = odd_temp;        
+    }
+    
     return curr_run;
 
 }
 
 
 
-void printActiveRun(activeRun * run){
-
+void printActiveRun(activeRun * run)
+{
+	printf("The contents of the active run \n");
+	printf("header: %c\n",run->header);
+	printf("run type: %u\n", run->run_type);
+	printf("fill bit: %u\n", run->fill_bit);
+	printf("fill length: %u\n", run->fill_len);
+	if(run->run_type == 1 || run->run_type == 3)
+	{
+		printf("tail length: %u\n", run->tail_len);
+	}
+	else if(run->run_type == 2 || run->run_type == 4)
+	{
+		printf("odd position: %u\n", run->odd_pos);
+	}
 }
 
