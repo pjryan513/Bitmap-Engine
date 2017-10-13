@@ -52,7 +52,8 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 
 
 activeRun *initActiveRun(byte *run, int run_start){
-    activeRun *curr_run;
+
+    activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun)*100);
 
     //store the run_pos
     curr_run->run_pos = run_start;
