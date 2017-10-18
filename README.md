@@ -79,7 +79,7 @@ When issuing $ make query_u, a segmentation fault seems to occur at this line. T
 ### How it works
   BBC compresses by bytes, to achieve this we use char (8 bits in C) to store our data.  The main idea behind BBC is to group bytes into runs.  There are four types of runs that BBC can create.  Every run follows the same pattern, a header byte followed by a fill and finally a tail.  A header byte is used in every run to tell information about each run, such as the type, fill bit, fill length and tail length.  A header must always start a run.  The type of a run is determined by the position of the first 1 bit in the header.  The fill bit is used to tell if the run is compressing 1s or 0s.  The fill of a run is not stored, only its size is inside the header or counter bytes(more about those later).  A fill will be all 1s or all 0s depending on the fill bit. So the actually fill is not stored just the size because we know it is either all 1s or all 0s.  The use of fills is know as fill based compression.  The tail is made of bytes that are too messy to be stored in the fill, so the tail are the literal bytes not able to be compressed which are connected behind the header.  So a run has a logical and physical representation.  The logical layout is [header | fill | tail], while the actual physical layout is [header | tail].
 #### Type 1 Runs:
-  The header for a type 1 run is [1 | fill_bit (1 bit) | fill_length (2 bits) | tail_length (4 bits)].  
+  The header for a type 1 run is [1 | fill_bit (1 bit) | fill_length (2 bits) | tail_length (4 bits)].  Type 1 runs are used when there are a 0-3 bytes of all 1s or 0s that can be compressed into a fill.    
 ### Files:
   BBCCompressor.c
   BBCCompressor.h

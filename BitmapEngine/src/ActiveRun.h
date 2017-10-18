@@ -17,6 +17,9 @@ typedef struct activeRun{
 	int run_pos;			//the position of  the run starting at the header.  Based off the over all compressed bit sequence.
 	int tail_pos;			//the poisiton of the tail bytes based from run_pos.
 	unsigned int run_size;
+
+	byte fill_store;
+	byte * tail_store;
 }activeRun;
 
 int getHeadType(byte);

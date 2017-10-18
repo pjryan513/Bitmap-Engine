@@ -36,7 +36,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         //While run1 and run2 are not emtpy keep operating
         while((run1->tail_len != 0 || run1->fill_len != 0) && (run2->tail_len != 0 || run2->fill_len != 0))
         {
-
+            
         }
 
         //If run1 is empty than update pos1 to the header postion of the next run

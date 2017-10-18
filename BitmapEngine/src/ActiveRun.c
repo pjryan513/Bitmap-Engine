@@ -50,6 +50,28 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 	return f_len;
 }
 
+void store_fill(activeRun *run)
+{
+    if(run->fill_bit == 0)
+    {
+        activeRun->fill_store = 0b11111111;
+    }
+    if(run->fill_bit == 1)
+    {
+        activeRun->fill_store = 0b00000000;
+    }
+}
+
+void store_tail(activeRun *run)
+{
+    int pos;
+
+    for(pos = run->run_pos + fill_len; pos < run_pos + fill_len + tail_len; pos++)
+    {
+        run->tail_store = run_seq[pos];
+    }
+}
+
 
 activeRun *initActiveRun(byte *run, int run_start){
 
