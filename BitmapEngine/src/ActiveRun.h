@@ -13,10 +13,10 @@ typedef struct activeRun{
 	unsigned int tail_len; //only used for type 1 and 3
 	unsigned int odd_pos;  //only used for type 2 and 4  
 	unsigned int fill_bit;
-	unsigned int fill_len;
+	unsigned int fill_len; 	//how many bytes stored in the fill
 	int run_pos;			//the position of  the run starting at the header.  Based off the over all compressed bit sequence.
 	int tail_pos;			//the poisiton of the tail bytes based from run_pos.
-	unsigned int run_size;
+	unsigned int run_size;	//how many bytes are in the run
 
 	byte fill_store;
 	byte * tail_store;
