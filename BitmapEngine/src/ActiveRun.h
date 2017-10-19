@@ -18,7 +18,7 @@ typedef struct activeRun{
 	int tail_pos;			//the poisiton of the tail bytes based from run_pos.
 	unsigned int run_size;	//how many bytes are in the run
 
-	byte fill_store;
+	//byte fill_store;
 	byte * tail_store;
 }activeRun;
 

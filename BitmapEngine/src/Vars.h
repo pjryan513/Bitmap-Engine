@@ -19,8 +19,9 @@
 #define OUT_CORE 1
 #define DECODE_UP 0//run VAL decode up algorithm when querying
 #define DECODE_DOWN 1//run VAL decode down algorithm when querying
-
 #define BUFF_SIZE 300//for file name buffers
 #define CONV pow(10,6)
+#define ONE_FILL  ((unsigned char)0b11111111) //byte of all ones
+#define ZERO_FILL  ((unsigned char)0b00000000) //byte of all zeros
 
 #endif /* VARS_H_ */

@@ -34,8 +34,8 @@ int main(int argc, char*argv[]) {
   printf("temp is %x\n", temp999);
   //should be a type 1 run 
   unsigned char tester = 0b00010010;
-  unsigned char run_type = getHeadType(tester);
-  printf("run type: %d\n", run_type);
+  //unsigned char run_type = getHeadType(tester);
+  //printf("run type: %d\n", run_type);
   //printf("255 in char representation: %c\n", ones);
   /*FILE *fp;
   fp = fopen("filewrite/alphabet.txt", "w");
@@ -46,6 +46,12 @@ int main(int argc, char*argv[]) {
   unsigned char thing = 'z';
   thing = NULL;
   printf("%x\n", thing);*/
+  unsigned char letter = 'a';
+  printf("letter a in binary: %d\n", letter);
+  unsigned int lettera = letter;
+  printf("letter a cast to an int: %d\n", lettera);
+  lettera = 8 + letter;
+  printf("adding 8 to letter a: %d\n", lettera);
 }
 
 	
