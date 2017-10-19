@@ -66,7 +66,7 @@ void store_tail(activeRun *run)
 {
     int pos;
 
-    for(pos = run->run_pos + 1; pos <= run_pos 1 + tail_len; pos++)
+    for(pos = run->tail_pos; pos < run->run_size; pos++)
     {
         run->tail_store = run_seq[pos];
     }
