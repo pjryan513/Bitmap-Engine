@@ -68,20 +68,20 @@ void store_tail(activeRun *run)
 
     for(pos = run->tail_pos; pos < run->run_size; pos++)
     {
-        run->tail_store = run_seq[pos];
+        run->tail_store = full_seq[pos];
     }
 }
 
 
 activeRun *initActiveRun(byte *run, int run_start){
 
-    activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun)*100);
+    activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun));
 
     //store the run_pos
     curr_run->run_pos = run_start;
 
     //storing the run in the acitve run
-    curr_run->run_seq = run;
+    curr_run->full_seq = run;
 
     //finding the type for the run
     curr_run->run_type = getHeadType(run[run_start]);
@@ -110,6 +110,8 @@ activeRun *initActiveRun(byte *run, int run_start){
 
         //getting tail_pos for type 1
         curr_run->tail_pos = curr_run->run_pos+1;
+
+
     }
     else if(curr_run->run_type == 2)
     {
