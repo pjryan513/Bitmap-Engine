@@ -39,31 +39,80 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         //While run1 and run2 are not empty keep operating
         while((run1->tail_len != 0 || run1->fill_len != 0) && (run2->tail_len != 0 || run2->fill_len != 0))
         {
-            //suppose we aren't looking ahead. Then: 
-            //
             //fill OR fill
             if(run1->fill_len > 0 && run2->fill_len > 0){
+            
+                int lookAhead;
+                if(run1->fill_len > run2->fill_len)
+                {
+                    lookAhead = run2->fill_len;
+                }
+                else
+                {
+                    lookAhead = run1->fill_len;
+                }
+
+                int i;
                 //0 fill OR 0 fill
                 if(run1->fill_bit == 0 && run2->fill_bit == 0){
-                    
+
+                    for(int i = 0; i < lookAhead; i++)
+                    {
+                        ret[out_pos + i] = 0b00000000;
+                    }
                 }
-                //0 fill and 1 fill
+                //1 fill OR 0 fill, as well as 1 fill OR 1 fill
+                else
+                {
+                    for(int i = 0; i < lookAhead; i++)
+                    {
+                        ret[out_pos + i] = 0b11111111;
+                    }
+                }
+                out_pos += i;
+                run1->fill_len -= lookAhead;
+                run2->fill_len -= lookAhead;
             }
             //fill OR messy
             else if(run1->fill_len > 0 && run2->fill_len = 0){
                 //0 fill and messy
-                //1 fill and 1 fill
+                if(run1->fill_bit = 0){
+                    ret[out_pos] = 0b00000000 | run2->tail_store[pos2];                 
+                }
                 //1 fill and messy
+                else{
+                    ret[out_pos] = 0b11111111 | run2->tail_store[pos2];
+                }
+                out_pos++;
+                pos1++;
+                pos2++;
+                run1->fill_len--;
+                run2->tail_len--;
             }
-            //vice versa
+            //messy OR fill
             else if(run2->fill_len > 0 && run1->fill_len = 0){
                 //0 fill and messy
-                //1 fill and 1 fill
+                if(run1->fill_bit = 0){
+                    ret[out_pos] = 0b00000000 | run1->tail_store[pos1];                 
+                }
                 //1 fill and messy
+                else{
+                    ret[out_pos] = 0b11111111 | run1->tail_store[pos1];
+                }
+                out_pos++;
+                pos1++;
+                pos2++;
+                run2->fill_len--;
+                run1->tail_len--;
             }
             //messy OR messy
             else{
-                
+                ret[out_pos] = run1->tail_store[pos1] | run2->tail_store[pos2];
+                out_pos++;
+                pos1++;
+                pos2++;
+                run1->tail_len--;
+                run2->tail_len--;
             }
 
         }
@@ -72,7 +121,6 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
 
-            pos1 += run1->run_size;
             free(run1);
         }
         
@@ -80,7 +128,6 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         if(run2->tail_len == 0 && run2->fill_len == 0)
         {
 
-            pos2 += run2->run_size;
             free(run2);
         }
         
