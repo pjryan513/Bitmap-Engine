@@ -45,7 +45,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
             if(run1->fill_len > 0 && run2->fill_len > 0){
                 //0 fill OR 0 fill
                 if(run1->fill_bit == 0 && run2->fill_bit == 0){
-
+                    
                 }
                 //0 fill OR 1 fill
             }
