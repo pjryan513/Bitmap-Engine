@@ -72,9 +72,16 @@ void store_tail(activeRun *run)
     }
 }
 
-
+/*
+    Param:
+        byte *run:  The sequnce of compressed bytes to store in the active run
+        int run_start:  The position of the header for the current run
+    return:
+        returns an activeRun * 
+*/
 activeRun *initActiveRun(byte *run, int run_start){
 
+    //need to allocate memory for the active run on the stack
     activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun));
 
     //store the run_pos
