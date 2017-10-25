@@ -24,7 +24,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
 
     while(pos1 < size1 && pos2 < size2)
     {
-        //If run1 is empty than initate the next run from col1
+        //If run1 is empty than initiate the next run from col1
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
             run1 = initActiveRun(col1, pos1);
@@ -40,30 +40,30 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         while((run1->tail_len != 0 || run1->fill_len != 0) && (run2->tail_len != 0 || run2->fill_len != 0))
         {
             //suppose we aren't looking ahead. Then: 
-            //
+            //ret[out_pos] = run1->
             //fill OR fill
             if(run1->fill_len > 0 && run2->fill_len > 0){
                 //0 fill OR 0 fill
                 if(run1->fill_bit == 0 && run2->fill_bit == 0){
 
                 }
-                //0 fill and 1 fill
+                //0 fill OR 1 fill
             }
             //fill OR messy
             else if(run1->fill_len > 0 && run2->fill_len = 0){
-                //0 fill and messy
-                //1 fill and 1 fill
-                //1 fill and messy
+                //0 fill OR messy
+                //1 fill OR 1 fill
+                //1 fill OR messy
             }
             //vice versa
             else if(run2->fill_len > 0 && run1->fill_len = 0){
-                //0 fill and messy
-                //1 fill and 1 fill
-                //1 fill and messy
+                //0 fill OR messy
+                //1 fill OR 1 fill
+                //1 fill OR messy
             }
             //messy OR messy
             else{
-                
+                //this should just be literal ORs of every byte
             }
 
         }
