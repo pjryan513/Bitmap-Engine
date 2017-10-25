@@ -1,4 +1,4 @@
-    
+
 #include <stdio.h>
 #include <stdlib.h>
 #include "Core.h"
@@ -24,7 +24,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
 
     while(pos1 < size1 && pos2 < size2)
     {
-        //If run1 is empty than initate the next run from col1
+        //If run1 is empty than initiate the next run from col1
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
             run1 = initActiveRun(col1, pos1);
@@ -39,6 +39,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         //While run1 and run2 are not empty keep operating
         while((run1->tail_len != 0 || run1->fill_len != 0) && (run2->tail_len != 0 || run2->fill_len != 0))
         {
+
             //fill OR fill
             if(run1->fill_len > 0 && run2->fill_len > 0){
             
@@ -91,6 +92,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
             }
             //messy OR fill
             else if(run2->fill_len > 0 && run1->fill_len = 0){
+
                 //0 fill and messy
                 if(run1->fill_bit = 0){
                     ret[out_pos] = 0b00000000 | run1->tail_store[pos1];                 

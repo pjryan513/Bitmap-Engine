@@ -40,7 +40,7 @@ typedef struct activeRun{
 	unsigned int run_size;	
 
 	//The literal tail bytes of the current run, (!!! will be non-initalized if type 2 or 4 !!!)
-	byte * tail_store;
+	byte *tail_store;
 }activeRun;
 
 int getHeadType(byte);
