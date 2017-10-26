@@ -50,7 +50,7 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 	return f_len;
 }
 
-void store_fill(activeRun *run)
+/*void store_fill(activeRun *run)
 {
     if(run->fill_bit == 0)
     {
@@ -60,8 +60,11 @@ void store_fill(activeRun *run)
     {
         activeRun->fill_store = 0b00000000;
     }
-}
+}*/
 
+/*
+    creates an array of bytes that store the literal messy bytes of the run
+*/
 void store_tail(activeRun *run)
 {
     curr_run->tail_store = malloc(sizeof(byte) * curr_run->tail_len);
