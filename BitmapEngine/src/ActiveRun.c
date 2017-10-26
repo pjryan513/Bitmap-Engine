@@ -199,10 +199,18 @@ void printActiveRun(activeRun * run)
 	if(run->run_type == 1 || run->run_type == 3)
 	{
 		printf("tail length: %u\n", run->tail_len);
+        printf("tail sequnce is: \n");
+        int i;
+        for(i = 0; i < run->tail_len; i++)
+        {
+            printf("%d: %d", i, (int)run->tail_store[i]);
+        }
 	}
 	else if(run->run_type == 2 || run->run_type == 4)
 	{
 		printf("odd position: %u\n", run->odd_pos);
 	}
+
+    printf("\n");
 }
 
