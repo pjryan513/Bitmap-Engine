@@ -64,11 +64,13 @@ void store_fill(activeRun *run)
 
 void store_tail(activeRun *run)
 {
-    int pos;
+    curr_run->tail_store = malloc(sizeof(byte) * curr_run->tail_len);
 
-    for(pos = run->tail_pos; pos < run->run_size; pos++)
+    int i;
+
+    for(i = 0; pos < run->run_size; i++)
     {
-        run->tail_store = full_seq[pos];
+        curr_run->tail_store = full_seq[i + curr_run->tail_pos];
     }
 }
 
@@ -79,7 +81,7 @@ void store_tail(activeRun *run)
     return:
         returns an activeRun * 
 */
-activeRun *initActiveRun(byte *run, int run_start){
+activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 
     //need to allocate memory for the active run on the stack
     activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun));
@@ -88,6 +90,7 @@ activeRun *initActiveRun(byte *run, int run_start){
     curr_run->run_pos = run_start;
 
     //storing the run in the acitve run
+    curr_run->full_seq = malloc(sizeof(byte) * seq_size);  //allocate memroy for the sequence
     curr_run->full_seq = run;
 
     //finding the type for the run
