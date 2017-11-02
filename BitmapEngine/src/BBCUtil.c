@@ -34,7 +34,7 @@ void placeOddBit(struct blockSeg *param){
       }
     }
   }
-  printf("current header (about to place odd bit) %x\n", param->curr_run[0]);
+  //printf("current header (about to place odd bit) %x\n", param->curr_run[0]);
   param->curr_run[0] |= pos;
   //param->header = 0; //setting the header to 0 ensures a new run will on the start next loop of BBCCompressor.c
   //return param->header;
@@ -73,8 +73,6 @@ void getByteType(struct blockSeg *param){
 }
 
 //This function starts a new run based on the type of byte we have
-//all 'binary' values here are still very much pseudo code.
-//real values will be stored in our defined 'typedef char byte' type
 
 void startNewRun(struct blockSeg *param){
 

@@ -55,9 +55,10 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 
 void store_tail(activeRun *run)
 {
-    curr_run->tail_store = malloc(sizeof(byte) * curr_run->tail_len);
+    run->tail_store = malloc(sizeof(byte) * run->tail_len);
 
     int i= 0;
+    int pos;
 
     for(pos = run->tail_pos; pos < run->run_size; pos++)
     {

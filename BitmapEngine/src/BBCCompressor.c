@@ -8,13 +8,17 @@ void bbcCompress(struct blockSeg *param){
   int i;
   param->curr_run = (byte*) malloc(sizeof(byte)*100);
   param->curr_size = 0;
+  printf("finna print?\n");
   for(i = 0; i < param->size; i++)
   {
     //printf("starting bbccompress\n");
     //these functions should go in rawbitmapreader.c, for each column there should be a new file.
     //sprintf(compfile, "compressed_%d", i);
     //param->colFile = fopen("filewrite/compressed%d.txt", i, "w");
-
+    int j;
+    for(j = 0; j < param->size; j++){
+      printf("data: %d\n", param->toCompress[j]);
+    }
     param->next_byte = param->toCompress[i];//get the next byte from the block sequence of bytes
     //printf("next byte (#%d): %x\n", i, param->next_byte);
 
@@ -174,7 +178,9 @@ void bbcCompress(struct blockSeg *param){
   printf("param->size is %x\n", param->size);
   printf("writing final run, curr_size %x\n", param->curr_size);
   printf("sizeof byte is %x\n",(unsigned int) sizeof(byte));
-   printf("***************WRITING OUT**************** (file end) \n");
+   printf("WRITING OUT(file end) \n");
   fwrite(param->curr_run, sizeof(byte), param->curr_size+1, param->colFile);
   fclose(param->colFile);
+
+  free(param->curr_run);
 }

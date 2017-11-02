@@ -13,6 +13,7 @@
 //this file is used to define the parameters
 #define WAH 0
 #define VAL 1
+#define BBC 2
 #define UNSTRIPED 0
 #define STRIPED 1
 #define IN_CORE 0

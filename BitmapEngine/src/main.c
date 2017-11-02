@@ -31,7 +31,7 @@ int main(int argc, char*argv[]) {
 			double time;
 
 			//run compression here
-			if(strcmp(argv[4],"UNSTRIPED")==0) time=compress(argv[2], UNSTRIPED,WAH,n);
+			if(strcmp(argv[4],"UNSTRIPED")==0) time=compress(argv[2], UNSTRIPED,BBC,n);
 			else time=compress(argv[2], STRIPED,WAH,n);
 
 			printf("time: %f...",time);

@@ -50,11 +50,12 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                     lookAhead = run1->fill_len;
                 }
 
-                int i = 0;
+                int i;
                 //0 fill OR 0 fill
                 if(run1->fill_bit == 0 && run2->fill_bit == 0){
 
-                    for(int i = 0; i < lookAhead; i++)
+                    
+                    for(i = 0; i < lookAhead; i++)
                     {
                         ret[out_pos + i] = 0b00000000;
                     }
@@ -62,7 +63,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                 //1 fill OR 0 fill, as well as 1 fill OR 1 fill
                 else
                 {
-                    for(int i = 0; i < lookAhead; i++)
+                    for(i = 0; i < lookAhead; i++)
                     {
                         ret[out_pos + i] = 0b11111111;
                     }
