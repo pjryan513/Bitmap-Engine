@@ -26,12 +26,12 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         //If run1 is empty than initiate the next run from col1
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
-            run1 = initActiveRun(col1, pos1);
+            run1 = initActiveRun(col1, size1, pos1);
         }
         //If run2 is empty thatn intiate the next run form col2
         if(run2->tail_len == 0 && run2->fill_len == 0)
         {
-            run2 = initActiveRun(col2, pos2);
+            run2 = initActiveRun(col2, size2, pos2);
         }
         //While run1 and run2 are not empty keep operating
         while((run1->tail_len != 0 || run1->fill_len != 0) && (run2->tail_len != 0 || run2->fill_len != 0))

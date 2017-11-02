@@ -52,9 +52,10 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 	return f_len;
 }
 
+
 void store_tail(activeRun *run)
 {
-    int pos;
+    curr_run->tail_store = malloc(sizeof(byte) * curr_run->tail_len);
 
     int i= 0;
 
@@ -72,7 +73,7 @@ void store_tail(activeRun *run)
     return:
         returns an activeRun * 
 */
-activeRun *initActiveRun(byte *run, int run_start){
+activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 
     //need to allocate memory for the active run on the stack
     activeRun *curr_run = (activeRun*) malloc(sizeof(activeRun));
@@ -81,6 +82,7 @@ activeRun *initActiveRun(byte *run, int run_start){
     curr_run->run_pos = run_start;
 
     //storing the run in the acitve run
+    curr_run->full_seq = malloc(sizeof(byte) * seq_size);  //allocate memroy for the sequence
     curr_run->full_seq = run;
 
     //finding the type for the run
@@ -186,10 +188,18 @@ void printActiveRun(activeRun * run)
 	if(run->run_type == 1 || run->run_type == 3)
 	{
 		printf("tail length: %u\n", run->tail_len);
+        printf("tail sequnce is: \n");
+        int i;
+        for(i = 0; i < run->tail_len; i++)
+        {
+            printf("%d: in char (%c) in unsigned int (%u)", i, run->tail_store[i], (int)run->tail_store[i]);
+        }
 	}
 	else if(run->run_type == 2 || run->run_type == 4)
 	{
 		printf("odd position: %u\n", run->odd_pos);
 	}
+
+    printf("\n");
 }
 
