@@ -49,3 +49,7 @@ bintest:
 cleantest:
 	rm -f *.o bintest
 	rm -f *.o 
+
+bbcquery:
+	gcc -Wall -c BBCQuery.c
+	gcc -Wall -c ActiveRun.c 

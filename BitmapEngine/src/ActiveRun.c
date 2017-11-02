@@ -1,6 +1,8 @@
 //File for processing query bytes 
-
-
+#include <stdio.h>
+#include <stdlib.h>
+#include "ActiveRun.h"
+//#include "Core.h"
 //determines the type of run we are looking at
 int getHeadType(byte header){
 
@@ -25,6 +27,7 @@ int getHeadType(byte header){
 	else if(header >> 4){
 		return 4;
 	}
+    return -1;
 }
 
 /*
@@ -34,8 +37,7 @@ return: the number of counter bytes in the run
 unsigned int counterBytes(byte * run, activeRun *curr_run){
 	int pos = 1;
 	unsigned int f_len; //keeping it unsigned? I think this helps
-	do
-	{
+	do{
 		unsigned int temp = run[pos] << 1;
 		temp >>= 1;
 		f_len = f_len + temp; //I believe we can add chars to ints
@@ -50,25 +52,16 @@ unsigned int counterBytes(byte * run, activeRun *curr_run){
 	return f_len;
 }
 
-void store_fill(activeRun *run)
-{
-    if(run->fill_bit == 0)
-    {
-        activeRun->fill_store = 0b11111111;
-    }
-    if(run->fill_bit == 1)
-    {
-        activeRun->fill_store = 0b00000000;
-    }
-}
-
 void store_tail(activeRun *run)
 {
     int pos;
 
+    int i= 0;
+
     for(pos = run->tail_pos; pos < run->run_size; pos++)
     {
-        run->tail_store = full_seq[pos];
+        run->tail_store[i] = run->full_seq[pos];
+        i++;
     }
 }
 
@@ -82,7 +75,7 @@ void store_tail(activeRun *run)
 activeRun *initActiveRun(byte *run, int run_start){
 
     //need to allocate memory for the active run on the stack
-    activeRun *curr_run = (ativeRun*) malloc(sizeof(activeRun));
+    activeRun *curr_run = (activeRun*) malloc(sizeof(activeRun));
 
     //store the run_pos
     curr_run->run_pos = run_start;
@@ -151,7 +144,7 @@ activeRun *initActiveRun(byte *run, int run_start){
     	curr_run->fill_bit = bit_temp;
 
     	//getting fill_len for type 3
-        curr_run->fill_len = counterBytes(run);
+        curr_run->fill_len = counterBytes(run, curr_run);
 
      	//getting tail_len for type 3
     	byte tail_temp = run[run_start] << 4;
@@ -169,7 +162,7 @@ activeRun *initActiveRun(byte *run, int run_start){
     	curr_run->fill_bit = bit_temp;
 
     	//getting fill_len for type 4
-        curr_run->fill_len = counterBytes(run);
+        curr_run->fill_len = counterBytes(run, curr_run);
 
 		//getting odd_pos for type 4
     	byte odd_temp = run[run_start] << 5;

@@ -1,10 +1,9 @@
 //defining the activeByte struct
 
-#ifndef ACTIVEWORD_H_
-#define ACTIVEWORD_H_
+#ifndef ACTIVERUN_H_
+#define ACTIVERUN_H_
 
-#include "Control.h"
-
+typedef unsigned char byte;
 
 typedef struct activeRun{
 	
@@ -43,12 +42,14 @@ typedef struct activeRun{
 	byte *tail_store;
 }activeRun;
 
-int getHeadType(byte);
+int getHeadType(byte header);
 
-int counterBytes(byte *);
+unsigned int counterBytes(byte * run, activeRun *curr_run);
 
-activeRun *initActiveRun(byte *);
+activeRun *initActiveRun(byte *run, int run_start);
 
-void printActiveRun(activeRun *);
+void printActiveRun(activeRun * param);
 
-#endif /* ACTIVEWORD_H_ */
+void store_tail(activeRun *run);
+
+#endif /* ACTIVERUN_H_ */

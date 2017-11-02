@@ -25,5 +25,5 @@
 #include "VALCompressor.h"
 #include "Vars.h"
 #include "WAHQuery.h"
-
+#include "ActiveRun.h"
 #endif /* CORE_H */
