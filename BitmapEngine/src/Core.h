@@ -27,4 +27,5 @@
 #include "WAHQuery.h"
 #include "BBCUtil.h"
 #include "ActiveRun.h"
+#include "BBCQuery.h"
 #endif /* CORE_H */
