@@ -6,6 +6,8 @@
 
 int main(int argc, char*argv[])
 {
+	printf("-------START OF QUERY TEST----------\n");
+
 	byte *ret;
 
 	byte *col1;
@@ -47,6 +49,7 @@ int main(int argc, char*argv[])
 			col2 = test2;
 		}
 	}
-
-	BBCQuery(ret, col1, col2Size, col2, col2Size);
+	OR_BBC(ret, col1, col2Size, col2, col2Size);
+	printf("ret[0]: %x\n", ret[0]);
+	//printf()
 }

@@ -6,26 +6,37 @@
 int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned int size2)
 {
 
-    //The first active run
-    activeRun *run1;
 
-    //The second active run
-    activeRun *run2;
+   
+
+
 
     //The header position in col1 of run1
-    int pos1;
+    int pos1 = 0;
 
     //The header position in col2 of run2
-    int pos2;
+    int pos2 = 0;
 
     //the position we are in in our output array
     int out_pos;
 
+    //The first active run
+    activeRun *run1;
+    run1 = initActiveRun(col1, size1, pos1);
+
+    //The second active run
+    activeRun *run2;
+    run2 = initActiveRun(col2, size2, pos2);
+
+
+    printf("run1->tail_len: %u\n", run1->tail_len);
+    
     while(pos1 < size1 && pos2 < size2)
     {
         //If run1 is empty than initiate the next run from col1
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
+            printf("here\n");
             run1 = initActiveRun(col1, size1, pos1);
         }
         //If run2 is empty thatn intiate the next run form col2
@@ -57,8 +68,12 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                     
                     for(i = 0; i < lookAhead; i++)
                     {
+                        //ERROR here, need to mallloc the *ret variable to the size
+                        //of the column(s) we are compressing. This should be done 
+                        //a tthe top of this file. 
                         ret[out_pos + i] = 0b00000000;
                     }
+                    printf("get here\n");
                 }
                 //1 fill OR 0 fill, as well as 1 fill OR 1 fill
                 else
@@ -71,6 +86,8 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                 out_pos += i;
                 run1->fill_len -= lookAhead;
                 run2->fill_len -= lookAhead;
+
+                printf("fill or fill worked");
             }
             //fill OR messy
             else if(run1->fill_len > 0 && run2->fill_len == 0){
