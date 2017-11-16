@@ -8,7 +8,7 @@ int main(int argc, char*argv[])
 {
 	printf("-------START OF QUERY TEST----------\n");
 
-	byte *ret;
+	byte *ret = (byte*) malloc(sizeof(byte)*10000);
 
 	byte *col1;
 
@@ -50,6 +50,5 @@ int main(int argc, char*argv[])
 		}
 	}
 	OR_BBC(ret, col1, col2Size, col2, col2Size);
-	printf("ret[0]: %x\n", ret[0]);
 	//printf()
 }

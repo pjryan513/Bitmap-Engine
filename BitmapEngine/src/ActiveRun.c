@@ -6,7 +6,7 @@
 //determines the type of run we are looking at
 int getHeadType(byte header){
 
-    printf("getHeadType\n");
+    //printf("getHeadType\n");
 	/*unsigned char h_type4 = header >> 4;
 	unsigned char h_type3 = header >> 5;
 	unsigned char h_type2 = header >> 6;
@@ -95,7 +95,7 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
     //if the type is 3 or 4 then counter bytes follow the header byte.
     //need to read the counter bytes
     
-    printf("here\n");
+    //printf("here\n");
     if(curr_run->run_type == 1)
     {
     	//getting the fill_bit for type 1
