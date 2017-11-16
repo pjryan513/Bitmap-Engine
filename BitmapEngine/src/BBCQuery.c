@@ -10,7 +10,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
    
 
 
-
+    ret = (byte*) malloc(sizeof(byte)*10000);
     //The header position in col1 of run1
     int pos1 = 0;
 
@@ -84,6 +84,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                     }
                 }
                 out_pos += i;
+
                 run1->fill_len -= lookAhead;
                 run2->fill_len -= lookAhead;
 
@@ -131,6 +132,7 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                 run1->tail_len--;
                 run2->tail_len--;
             }
+            printf("hey");
 
         }
 
