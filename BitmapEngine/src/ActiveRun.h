@@ -46,6 +46,8 @@ int getHeadType(byte header);
 
 unsigned int counterBytes(byte * run, activeRun *curr_run);
 
+activeRun *initDefRun();
+
 activeRun *initActiveRun(byte *run, int seq_size, int run_start);
 
 void printActiveRun(activeRun * param);

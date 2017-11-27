@@ -68,9 +68,30 @@ void store_tail(activeRun *run)
     }
 }
 
+
+//will produce a blank activeRun struct with all values set to zero
+activeRun *initDefRun()
+{
+    activeRun *run;
+
+    run->header = 0;
+    run->run_type = 0;
+    run->run_seq;
+    run->full_seq;
+    run->tail_len = 0;
+    run->fill_len = 0;
+    run->run_pos = 0;
+    run->tail_pos = 0;
+    run->run_size = 0;
+    run->tail_store = 0;
+
+    return run;
+}
+
 /*
     Param:
         byte *run:  The sequnce of compressed bytes to store in the active run
+        int seq_size:   The size of run
         int run_start:  The position of the header for the current run
     return:
         returns an activeRun * 
