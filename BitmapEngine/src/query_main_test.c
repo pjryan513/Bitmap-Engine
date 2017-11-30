@@ -84,12 +84,14 @@ int main(int argc, char*argv[])
 	printf("Result of query: \n");
 	for(i = 0; i < ret_size; i++)
 	{
-		printf("%u", ret[i]);
+		//printf("%u\n", ret[i]);
 		if(i < ret_size -1)
 		{
 			printf(", ");
 		}
 		
 	}
-	printf("\n");
+	printf("hey yo\n");
+	free(ret);
+
 }

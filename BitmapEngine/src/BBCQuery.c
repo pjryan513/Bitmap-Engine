@@ -152,7 +152,10 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
 
     printf("about to return\n");
     printf("size of ret is %u\n", out_pos);
-    printf("ret %u\n", ret[2]);
+    printf("ret at 0: %u\n", ret[0]);
+    printf("ret at 1: %u\n", ret[1]);
+    printf("ret at 2: %u\n", ret[2]);
+    printf("ret at 3: %u\n", ret[3]);
     return out_pos;
 }
 
