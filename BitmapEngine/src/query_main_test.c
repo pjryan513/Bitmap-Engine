@@ -6,7 +6,6 @@
 
 int main(int argc, char*argv[])
 {
-	printf("-------START OF QUERY TEST----------\n");
 
 	byte *ret = (byte*) malloc(sizeof(byte)*10000);
 
@@ -73,25 +72,21 @@ int main(int argc, char*argv[])
 
 
 	}
-	printf("ret %u\n", ret[0]);
-	printf("col1 %u\n", col1[0]);
-	printf("col1size %u\n", col1Size);
-	printf("col2 %u\n", col2[0]);
-	printf("col2Size %u\n", col2Size);
+	
 	int ret_size = OR_BBC(ret, col1, col1Size, col2, col2Size);
 	printf("ret_size %u\n", ret_size);
 	int i;
 	printf("Result of query: \n");
 	for(i = 0; i < ret_size; i++)
 	{
-		//printf("%u\n", ret[i]);
+		printf("%u", ret[i]);
 		if(i < ret_size -1)
 		{
 			printf(", ");
 		}
 		
 	}
-	printf("hey yo\n");
+	printf("\n");
 	free(ret);
 
 }

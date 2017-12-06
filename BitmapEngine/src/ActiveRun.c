@@ -72,18 +72,19 @@ void store_tail(activeRun *run)
 //will produce a blank activeRun struct with all values set to zero
 activeRun *initDefRun()
 {
-    activeRun *run;
+    activeRun *run = (activeRun*) malloc(sizeof(activeRun));
 
     run->header = 0;
     run->run_type = 0;
-    run->run_seq;
-    run->full_seq;
+    //run->run_seq;
+    //run->full_seq;
     run->tail_len = 0;
     run->fill_len = 0;
     run->run_pos = 0;
     run->tail_pos = 0;
     run->run_size = 0;
     run->tail_store = 0;
+
 
     return run;
 }

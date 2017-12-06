@@ -5,7 +5,8 @@
 
 int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned int size2)
 {
-    printf("hey\n");
+    printf("-----------QUERY IN PROCESS-------------\n");
+    printf("\n");
     //The header position in col1 of run1
     int pos1 = 0;
 
@@ -26,21 +27,24 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
     /*run2 = initActiveRun(col2, size2, pos2);
     pos2++;*/
 
-    int k = 0;
+    //int k = 0;
     while(pos1 < size1 && pos2 < size2)
     {
-        printf("inside loop\n");
         //If run1 is empty than initiate the next run from col1
         if(run1->tail_len == 0 && run1->fill_len == 0)
         {
+            free(run1);
             run1 = initActiveRun(col1, size1, pos1);
+            printf("For run1:\n");
             printActiveRun(run1);
             pos1++;
         }
         //If run2 is empty thatn intiate the next run form col2
         if(run2->tail_len == 0 && run2->fill_len == 0)
         {
+            free(run2);
             run2 = initActiveRun(col2, size2, pos2);
+            printf("For run2:\n");
             printActiveRun(run2);
             pos2++;
         }
@@ -77,7 +81,6 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
                 //1 fill OR 0 fill, as well as 1 fill OR 1 fill
                 else
                 {
-                    printf("1 and 1 fill \n");
                     for(i = 0; i < lookAhead; i++)
                     {
                         ret[out_pos + i] = 0b11111111;
@@ -135,7 +138,8 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         }
 
         //If run1 is empty than update pos1 to the header postion of the next run
-        if(run1->tail_len == 0 && run1->fill_len == 0)
+
+        /*if(run1->tail_len == 0 && run1->fill_len == 0)
         {
             free(run1);
         }
@@ -145,17 +149,12 @@ int OR_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned in
         if(run2->tail_len == 0 && run2->fill_len == 0)
         {
             free(run2);
-        }
+        }*/
         
     //If on success than return 1
     }
 
-    printf("about to return\n");
-    printf("size of ret is %u\n", out_pos);
-    printf("ret at 0: %u\n", ret[0]);
-    printf("ret at 1: %u\n", ret[1]);
-    printf("ret at 2: %u\n", ret[2]);
-    printf("ret at 3: %u\n", ret[3]);
+    printf("------------QUERY DONE----------\n");
     return out_pos;
 }
 
