@@ -61,10 +61,33 @@ void store_tail(activeRun *run)
     int i= 0;
     int pos;
 
-    for(pos = run->tail_pos; pos < run->run_size; pos++)
+    if(run->run_type == 1 || run->run_type == 3)
     {
-        run->tail_store[i] = run->full_seq[pos];
-        i++;
+        for(pos = run->tail_pos; pos < run->run_size + run->tail_pos; pos++)
+        {
+            run->tail_store[i] = run->full_seq[pos];
+            i++;
+        }
+    }
+    //The odd byte will just be stored in a tail of size 1
+    else
+    {
+        int val = 1;
+        int i;
+        for(i = 0; i < run->odd_pos; i++)
+        {
+            val *= 2;
+        }
+
+        if(run->fill_bit == 1)
+        {
+            
+            run->tail_store[0] = val;
+        }
+        else
+        {
+            run->tail_store[0] = 255 - val;
+        }
     }
 }
 
@@ -106,6 +129,7 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 
     //store the run_pos
     curr_run->run_pos = run_start;
+    curr_run->header = run[run_start];
 
     //storing the run in the acitve run
     curr_run->full_seq = malloc(sizeof(byte) * seq_size);  //allocate memroy for the sequence
@@ -141,6 +165,8 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
         //getting tail_pos for type 1
         curr_run->tail_pos = curr_run->run_pos+1;
 
+        store_tail(curr_run);
+
     }
     else if(curr_run->run_type == 2)
     {
@@ -159,10 +185,17 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
     	odd_temp >>= 5;
     	curr_run->odd_pos = odd_temp;
 
+        //setting tail length to 1 due to odd byte
+        curr_run->tail_len = 1;
+
         //getting tail_pos for type 2
         curr_run->tail_pos = curr_run->run_pos+1;
 
-        curr_run->run_size = 1;
+        //run_size is made 2 because the odd byte has to be made a tail to work for the query engine
+        //so even though it is just a header a single tail byte is added
+        curr_run->run_size = 2;
+
+        store_tail(curr_run);
 
     }
     else if(curr_run->run_type == 3)
@@ -182,6 +215,8 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 
         //adding the tail len to run size
         curr_run->run_size += curr_run->tail_len;
+
+        store_tail(curr_run);
     }
     else if(curr_run->run_type == 4)
     {
@@ -196,7 +231,16 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 		//getting odd_pos for type 4
     	byte odd_temp = run[run_start] << 5;
     	odd_temp >>= 5;
-    	curr_run->odd_pos = odd_temp;        
+    	curr_run->odd_pos = odd_temp;    
+
+        //setting the tail len to 1 due to odd byte
+        curr_run->tail_len =1;
+
+        //increase run_size by 1 for the tail storing the odd byte
+        //like type 2 "should" be no tail but need to add odd byte to tail to work with query engine
+        curr_run->run_size++; 
+
+        store_tail(curr_run);   
     }
     
     return curr_run;
@@ -208,23 +252,29 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 void printActiveRun(activeRun * run)
 {
 	printf("The contents of the active run \n");
-	printf("header: %c\n",run->header);
+	printf("header: %u\n",run->header);
 	printf("run type: %u\n", run->run_type);
 	printf("fill bit: %u\n", run->fill_bit);
 	printf("fill length: %u\n", run->fill_len);
 	if(run->run_type == 1 || run->run_type == 3)
 	{
 		printf("tail length: %u\n", run->tail_len);
-        printf("tail sequnce is: \n");
+        printf("tail sequnce is: [ ");
         int i;
         for(i = 0; i < run->tail_len; i++)
         {
-            printf("%d: in char (%c) in unsigned int (%u)", i, run->tail_store[i], (int)run->tail_store[i]);
+            printf("%d: (%u)", i, run->tail_store[i]);
+            if(i < run->tail_len-1)
+            {
+                printf(", ");
+            }
         }
+        printf(" ]\n");
 	}
 	else if(run->run_type == 2 || run->run_type == 4)
 	{
 		printf("odd position: %u\n", run->odd_pos);
+        printf("odd byte value (stored in tail): %u\n", run->tail_store[0]);
 	}
 
     printf("\n");
