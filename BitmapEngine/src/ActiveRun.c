@@ -141,7 +141,6 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
         //getting tail_pos for type 1
         curr_run->tail_pos = curr_run->run_pos+1;
 
-
     }
     else if(curr_run->run_type == 2)
     {
