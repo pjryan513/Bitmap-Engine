@@ -18,7 +18,7 @@ int main(int argc, char*argv[])
 	unsigned int col2Size;
 
 	int option = 0; //use hard coded or read file
-	int option2 = 0;
+	int option2 = 7;
 
 	if(!option)
 	{
@@ -208,6 +208,10 @@ int main(int argc, char*argv[])
 
 			col1 = test1;
 			col2 = test2;
+		}
+		else if(option2 == 7){
+			system("python binhextrans.py query_test_data1.txt bin 1");
+			system("python binhextrans.py query_test_data2.txt bin 2");
 		}
 	}
 
