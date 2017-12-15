@@ -12,20 +12,20 @@ int main(int argc, char*argv[])
 	byte *col1;
 
 	unsigned int col1Size;
+	int loopSize3;
+	byte *or_uncomp;
 
 	byte *col2;
 
 	unsigned int col2Size;
 
-	int option = 0; //use hard coded or read file
+	int option = 1; //use hard coded or read file
 	int option2 = 7;
 
 	if(!option)
 	{
 		if(option2 == 0)
 		{
-
-
 			byte test1[10];
 			byte test2[10];
 
@@ -209,23 +209,54 @@ int main(int argc, char*argv[])
 			col1 = test1;
 			col2 = test2;
 		}
-		else if(option2 == 7){
-			system("python binhextrans.py query_test_data1.txt bin 1");
-			system("python binhextrans.py query_test_data2.txt bin 2");
-		}
 	}
-
 	else
 	{
-		//read from file
-		FILE *fl;
-		fl =fopen("query_test.txt","r");
+		system("python binhextrans.py query_test_data1.txt bin 1");
+		system("python binhextrans.py query_test_data2.txt bin 2");
+		system("./bbc_test_main 1");
 
-		fclose(fl);
+		//system("python binhextrans.py uncompressed_OR.dat hex 3");
+		//system("python binhextrans.py bbc_test_output1.dat hex 4");
+		//system("python binhextrans.py bbc_test_output2.dat hex 5");
 
+		FILE *inPtr1 = fopen("bbc_test_output1.dat", "rb");
+	    FILE *inPtr2 = fopen("bbc_test_output2.dat", "rb");
+	    FILE *inPtr3 = fopen("uncompressed_OR.dat", "rb");
 
+	    fseek(inPtr1, 0L, SEEK_END);
+	    fseek(inPtr2, 0L, SEEK_END);
+	    fseek(inPtr3, 0L, SEEK_END);
+	    
+	    int loopSize = ftell(inPtr1);
+	    loopSize3 = ftell(inPtr3);
+	    //int loopSize2 = ftell(inPtr2);
+	    rewind(inPtr1);
+	    rewind(inPtr2);
+	    int i;
+	    col1 = (byte*) malloc(sizeof(byte)*loopSize);
+	    col2 = (byte*) malloc(sizeof(byte)*loopSize);
+	    or_uncomp = (byte*) malloc(sizeof(byte)*loopSize3);
+	    for(i = 0; i < loopSize3; i++){
+	    	fread(or_uncomp, 1, loopSize3, inPtr3);
+	    }
+	   	printf("loopsize: %d\n", loopSize);
+
+	    for(i = 0; i < loopSize; i++)
+	    {
+	      //printf("inside loop\n");
+	      //unsigned char buff[1];
+	      fread(col1, 1, loopSize, inPtr1);
+	      fread(col2, 1, loopSize, inPtr2);
+	      //fread()
+	      //fgets(buff,readSize,inPtr);
+	      //segtest1->toCompress[i] = buff;
+	      //printf("%02x", segtest1->toCompress[i]);
+	    }
+
+		col1Size = loopSize;
+		col2Size = loopSize;
 	}
-	
 	int ret_size = OR_BBC(ret, col1, col1Size, col2, col2Size);
 	printf("ret_size %u\n", ret_size);
 	int i;
@@ -239,7 +270,21 @@ int main(int argc, char*argv[])
 		}
 		
 	}
+	printf("\n\n\n");
+	if(option){
+		for(i = 0; i < sizeof(or_uncomp); i++)
+		{
+			printf("%u", or_uncomp[i]);
+			if(i < loopSize3 - 1)
+			{
+				printf(", ");
+			}
+		}
+	}
 	printf("\n");
+	free(or_uncomp);
+	free(col1);
+	free(col2);
 	free(ret);
 
 }

@@ -58,6 +58,12 @@ bbcquery:
 	gcc -Wall -c BBCQuery.c
 	gcc -Wall -c ActiveRun.c 
 
+bbctest:
+	gcc -Wall -c BBCCompressor.c
+	gcc -Wall -c BBCUtil.c
+	gcc -Wall -c bbc_test_main.c
+	gcc -Wall -o bbc_test_main BBCCompressor.o BBCUtil.o bbc_test_main.o
+
 testquery:
 	gcc -Wall -c ActiveWord.c
 	gcc -Wall -c Clock.c

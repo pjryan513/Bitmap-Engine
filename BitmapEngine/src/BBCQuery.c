@@ -77,7 +77,6 @@ int Query_BBC(byte * ret, byte * col1, unsigned int size1, byte * col2, unsigned
             printf("pos1: %u pos2: %u\n", pos1, pos2);
             //fill OR fill
             if(run1->fill_len > 0 && run2->fill_len > 0){
-            
                 int lookAhead = 0;
                 if(run1->fill_len > run2->fill_len)
                 {
