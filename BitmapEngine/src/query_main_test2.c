@@ -7,14 +7,13 @@
 int main(int argc, char*argv[])
 {
 
-	byte *ret = (byte*) malloc(sizeof(byte)*10000);
+	//byte *ret = (byte*) malloc(sizeof(byte)*10000);
 
 	byte *col1;
-
 	unsigned int col1Size;
 	int loopSize3;
 	byte *or_uncomp;
-
+	int malSize;
 	byte *col2;
 
 	unsigned int col2Size;
@@ -228,38 +227,49 @@ int main(int argc, char*argv[])
 	    fseek(inPtr2, 0L, SEEK_END);
 	    fseek(inPtr3, 0L, SEEK_END);
 	    
-	    int loopSize = ftell(inPtr1);
+	    int loopSize1 = ftell(inPtr1);
+	    int loopSize2 = ftell(inPtr2);
 	    loopSize3 = ftell(inPtr3);
-	    //int loopSize2 = ftell(inPtr2);
+
 	    rewind(inPtr1);
 	    rewind(inPtr2);
+	    rewind(inPtr3);
 	    int i;
-	    col1 = (byte*) malloc(sizeof(byte)*loopSize);
-	    col2 = (byte*) malloc(sizeof(byte)*loopSize);
+	    col1 = (byte*) malloc(sizeof(byte)*loopSize1);
+	    col2 = (byte*) malloc(sizeof(byte)*loopSize2);
 	    or_uncomp = (byte*) malloc(sizeof(byte)*loopSize3);
 	    for(i = 0; i < loopSize3; i++){
 	    	fread(or_uncomp, 1, loopSize3, inPtr3);
 	    }
-	   	printf("loopsize: %d\n", loopSize);
+	   	for(i = 0; i < loopSize3; i++){
+	    	printf("d\n", or_uncomp[i]);
+	    }
+	   	printf("loopsize: %d\n", loopSize1);
 
-	    for(i = 0; i < loopSize; i++)
+	    for(i = 0; i < loopSize1; i++)
 	    {
-	      //printf("inside loop\n");
-	      //unsigned char buff[1];
-	      fread(col1, 1, loopSize, inPtr1);
-	      fread(col2, 1, loopSize, inPtr2);
-	      //fread()
-	      //fgets(buff,readSize,inPtr);
-	      //segtest1->toCompress[i] = buff;
-	      //printf("%02x", segtest1->toCompress[i]);
+	      	fread(col1, 1, loopSize1, inPtr1);
+	    }
+	   	for(i = 0; i < loopSize2; i++)
+	    {
+	      	fread(col2, 1, loopSize2, inPtr2);
 	    }
 
-		col1Size = loopSize;
-		col2Size = loopSize;
+		col1Size = loopSize1;
+		col2Size = loopSize2;
+		if(col1Size > col2Size){
+			malSize = col1Size;
+		}
+		else{
+			malSize = col2Size;
+		}
 	}
+	byte *ret = (byte*) malloc(sizeof(byte)*malSize);
 	int ret_size = OR_BBC(ret, col1, col1Size, col2, col2Size);
 	printf("ret_size %u\n", ret_size);
 	int i;
+	FILE *or_query = fopen("query_OR.dat", "wb");
+	fwrite(ret, sizeof(byte), malSize+1, or_query);
 	printf("Result of query: \n");
 	for(i = 0; i < ret_size; i++)
 	{
@@ -272,7 +282,8 @@ int main(int argc, char*argv[])
 	}
 	printf("\n\n\n");
 	if(option){
-		for(i = 0; i < sizeof(or_uncomp); i++)
+		printf("or uncomp \n");
+		for(i = 0; i < ret_size; i++)
 		{
 			printf("%u", or_uncomp[i]);
 			if(i < loopSize3 - 1)

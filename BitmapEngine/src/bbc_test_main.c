@@ -381,8 +381,10 @@ int main(int argc, char*argv[])
       //printf("%02x", segtest1->toCompress[i]);
     }
     for(i = 0; i < loopSize; i++){
-      uncomp_or_array[i] = segtest1->toCompress[i] || segtest2->toCompress[i];
-      printf("or_array at pos: %02X\n", uncomp_or_array[i]);
+      uncomp_or_array[i] = segtest1->toCompress[i] | segtest2->toCompress[i];
+      printf("segtest1 at pos: %02x ", segtest1->toCompress[i]);
+      printf("segtest2 at pos: %02x ", segtest2->toCompress[i]);
+      printf("or_array at pos: %d\n", uncomp_or_array[i]);
     }
     printf("\nloop end in query\n");
 
