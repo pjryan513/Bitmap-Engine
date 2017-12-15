@@ -167,7 +167,6 @@ activeRun *initActiveRun(byte *run, int seq_size, int run_start){
 
         store_tail(curr_run);
 
-
     }
     else if(curr_run->run_type == 2)
     {
