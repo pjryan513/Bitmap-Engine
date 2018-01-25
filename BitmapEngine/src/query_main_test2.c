@@ -7,7 +7,6 @@
 int main(int argc, char*argv[])
 {
 
-	//byte *ret = (byte*) malloc(sizeof(byte)*10000);
 
 	byte *col1;
 	unsigned int col1Size;
@@ -18,13 +17,8 @@ int main(int argc, char*argv[])
 
 	unsigned int col2Size;
 
-<<<<<<< HEAD:BitmapEngine/src/query_main_test2.c
 	int option = 1; //use hard coded or read file
 	int option2 = 7;
-=======
-	int option = 0; //use hard coded or read file
-	int option2 = 0;
->>>>>>> b78626c5848d84fce9fe74280982ffaf15652a72:BitmapEngine/src/query_main_test.c
 
 	if(!option)
 	{
@@ -71,12 +65,6 @@ int main(int argc, char*argv[])
 			test1[9] = 0b11111111;
 			test2[9] = 0b11111111;
 
-
-			/*for(i = 1; i < col1Size; i++)
-			{
-				test1[i] = 0;
-				test2[i] = 0;
-			}*/
 
 			col1 = test1;
 			col2 = test2;
@@ -136,7 +124,6 @@ int main(int argc, char*argv[])
 
 			test1[10] = 0b11111111;
 			test2[10] = 0b11111111;
-
 
 
 			col1Size = 11;
@@ -280,19 +267,8 @@ int main(int argc, char*argv[])
 	int i;
 	FILE *or_query = fopen("query_OR.dat", "wb");
 	fwrite(ret, sizeof(byte), malSize+1, or_query);
-	printf("Result of query: \n");
-	for(i = 0; i < ret_size; i++)
-	{
-		printf("%u", ret[i]);
-		if(i < ret_size -1)
-		{
-			printf(", ");
-		}
-		
-	}
-	printf("\n\n\n");
 	if(option){
-		printf("or uncomp \n");
+		printf("\nBitwise OR uncompressed:\n");
 		for(i = 0; i < ret_size; i++)
 		{
 			printf("%u", or_uncomp[i]);
@@ -302,6 +278,33 @@ int main(int argc, char*argv[])
 			}
 		}
 	}
+	printf("\n\nBitwise OR query: \n");
+	for(i = 0; i < ret_size; i++)
+	{
+		printf("%u", ret[i]);
+		if(i < ret_size -1)
+		{
+			printf(", ");
+		}
+		
+	}
+	int check = 0;
+	for(i = 0; i < ret_size; i++){
+		if(or_uncomp[i] == ret[i]){
+			//do nothing if they're equal
+		}
+		else{
+			check = 1;
+		}
+	}
+	if(check == 1){
+		printf("\n********Querying did not produce expected results.********\n");
+	}
+	else{
+		printf("\n\nQuerying worked as expected.\n");
+	}
+	printf("\n\n\n");
+
 	printf("\n");
 	free(or_uncomp);
 	free(col1);

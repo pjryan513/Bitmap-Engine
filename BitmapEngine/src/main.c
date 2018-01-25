@@ -42,7 +42,7 @@ int main(int argc, char*argv[]) {
 			}
 			fprintf(results_file,"%f,",time);//write result to file
 			fclose(results_file);
-		}
+		} //QUERYING
 		else if(strcmp(argv[1],"Q")==0 && argc==5){
 			int n = atoi(argv[4]);
 			if(n<1) return -1;
