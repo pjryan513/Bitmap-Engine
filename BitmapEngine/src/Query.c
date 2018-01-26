@@ -47,13 +47,16 @@ void runQueries(char *folder, char *query, int n){
 		while(c!=EOF){//keep scanning each query
 			fscanf(fp, "%d", &qid);//query id
 			getc(fp);//comma
+			printf("here, fp=%s\n", fp);
 			range1 = parseRange(fp);//first range
 			range2 = parseRange(fp);//second range
+			printf("here\n");
 			executeQuery();
 			free(range1);
 			free(range2);
 			printf("\nfreed range 1 & 2\n");
 			c=getc(fp);//get new line
+			printf("here\n");
 		}
 	}
 
@@ -129,6 +132,9 @@ void executeQuery(){
 		}
 		else if(COMPRESSION==VAL){
 			results1[0]->resultSize = OR_VAL(results1[0]->result,results1[0]->resultCopy,results1[0]->resultSizeCopy,results1[h]->result,results1[h]->resultSize);
+		}
+		else if(COMPRESSION==BBC){
+			//results1[0]->resultSize = 
 		}
 	}
 
@@ -267,11 +273,12 @@ int *parseRange(FILE *qFile){
 	int j = 0;
 	fscanf(qFile, "%d", &j);//second column of the range
 	int sz = j-i+2;//size of the range array (number of columns + 1 for size)
+	printf("size: %d", sz);
 	int *ret = (int *) malloc(sizeof(int) * (sz));
 	int k;
 	ret[0] = sz-1;//save number of columns
 	for(k=1;k<sz;ret[k++] = i++);//fill array with the right range
-
+printf("parsing range\n");
 	return ret;
 }
 

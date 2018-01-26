@@ -39,8 +39,12 @@ query_u :
 
 # query striped
 # $ ./main Q <BITMAP_PATH> <QUERY_FILE> <NUM_THREADS>
-query_s :
+query_s:
 	./main Q ../../BitmapWorkloadGenerator/src/bitmap_out.txt_STRIPED_1_COMPRESSED ../../BitmapWorkloadGenerator/src/query_out.txt 1
+
+#unstriped bbc compression, querying from alexia's main method
+# $ ./main Q <BITMAP_PATH> <QUERY_FILE> <NUM_THREADS>
+#query_u_bbc:
 
 clean:
 	rm main
