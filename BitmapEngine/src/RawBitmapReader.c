@@ -75,14 +75,17 @@ int initCompression(){
 void clearMem(){
 
 	int i;
-
+	printf("about to free threads\n");
 	free(threads);
+	printf("freed threads\n");
 	if(striped==UNSTRIPED){
 		for(i=0;i>num_threads;i++){
 			free(segs[i]->toCompress);
 			free(segs[i]);
+			printf("freed segs internals\n");
 		}
 		free(segs);
+		printf("freed segs\n");
 	}
 	if(striped==STRIPED){
 		for(i=0;i<num_threads;i++){
@@ -152,6 +155,7 @@ void runOverhead(){
 				stat(temp_name, &st);
 				size = (st.st_size)/sizeof(word_read);//this is number of words in each column file (same in each column)
 			}
+			printf("Folder location = %s\n", temp_name);
 			//counting the number of columns there are in that folder
 			if(access(temp_name,F_OK) != -1){//if this file exists
 				numCols++;//count it
@@ -163,6 +167,7 @@ void runOverhead(){
 		}
 		if(CORE==OUT_CORE){
 			blockWords = BLOCK_SIZE*1000/sizeof(word_read);//this is how many words we will be scanning every time
+			printf("CORE = OUT_CORE ... blockWords = %d\n", blockWords);
 
 			//TODO: implement VAL here too (focusing on WAH right now)
 			//if(COMPRESSION==VAL){
@@ -431,6 +436,7 @@ void compressUnstriped(){
 	for(i=0;i<num_threads;i++){//start each thread going
 		segs[i] = (blockSeg *) malloc(sizeof(blockSeg));//allocate the segment pointer
 		segs[i]->toCompress = (word_read *) malloc(sizeof(word_read) * blockWords);//allocate the word array buffer in the segment struct
+		printf("about to make the threads\n");
 		if(pthread_create(&threads[i],NULL,compressNext,(void *)(&(id[i])))){
 			printf("Error creating thread\n");
 			return;
@@ -438,6 +444,7 @@ void compressUnstriped(){
 	}
 
 	for(i=0;i<num_threads;i++){//wait for all the threads to finish
+		printf("joining all the threads\n");
 		if(pthread_join(threads[i],NULL)){
 			printf("Error joining thread\n");
 			return;
@@ -451,11 +458,12 @@ void compressUnstriped(){
 void *compressNext(void *param){
 	int n = -1;//hasn't been assigned a column yet
 	int *id = (int *) param;
+	printf("in compressNext. n = %d, numCols = %d\n", n, numCols);
 	while(n<numCols){
 		pthread_mutex_lock(&mut);//lock everything
 		n=(next++);//find out which column we need to compress (and increment for the next thread to compress)
 		pthread_mutex_unlock(&mut);//unlock it
-
+		printf("n after lock modification: %d\n", n);
 		if(n<numCols){//if there's still another column to compress
 			compressColumn(n,*id);//go for it
 		}
@@ -474,7 +482,7 @@ void compressColumn(int col, int threadNum){
 	int i;
 	int length = BASE_LEN;
 	if(NUM_SEGS>-1) length = (WORD_LENGTH-FLAG_BITS)/NUM_SEGS;
-
+	printf("compressing columns\n");
 	unsigned int min = 0;
 	min--;
 	int optimal=0;
@@ -509,12 +517,24 @@ void compressColumn(int col, int threadNum){
 			///////////////////////////////////////////
 			//adding in BBC (TAKE AWAY AFTER TESTING)//
 			///////////////////////////////////////////
-			else if(format==BBC) bbcCompress(segs[threadNum]);
-			if(CORE==IN_CORE) break;
+			else if(format==BBC){
+				bbcCompress(segs[threadNum]);
+				printf("completed compression\n");
+			} 
+			if(CORE==IN_CORE){
+				printf("in/out core\n");
+				break; 
+			}
 			segs[threadNum]->status = VALID;//not at the beginning anymore
 			if(read<blockWords){//if we reached the end of the file
-				fclose(segs[threadNum]->colFile);//close the compressed file
-				fclose(ptr);//close the uncompressed column data file
+				printf("end of file, read = %d, blockwords = %d, threadNum=%d, writing=%s\n", read, blockWords, threadNum, writing);
+				printf("file: %x\n", segs[threadNum]->colFile);
+				if(segs[threadNum]->colFile != NULL){
+					//fclose(segs[threadNum]->colFile);//close the compressed file
+					printf("closed file*********\n");
+				}
+				//fclose(ptr);//close the uncompressed column data file
+				printf("closing files\n");
 				break;//and leave
 			}
 		}

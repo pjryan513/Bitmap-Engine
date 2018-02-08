@@ -9,7 +9,7 @@
  *
  */
 int main(int argc, char*argv[]) {
-
+	
 	setbuf(stdout,NULL);
 	if(argc>2 && (strcmp(argv[1],"F")==0 || strcmp(argv[1],"C")==0 || strcmp(argv[1],"Q")==0)){
 		// printf("correct num of args \n");

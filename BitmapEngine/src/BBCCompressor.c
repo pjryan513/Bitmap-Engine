@@ -78,10 +78,9 @@ void bbcCompress(struct blockSeg *param){
 
     if(param->header != 0){
       if(param->byte_type == ZERO_BYTE || param->byte_type == ONE_BYTE){
-
         //proper type of fill (0 or 1)
-
-        if(param->fill_match == param->fill_bit){
+        //***modified for type 3 edge case***
+        if(param->fill_match == param->fill_bit && param->tail_len <=  0){
          //printf("fill match = fill bit\n");
           //if we are currently in a TYPE_1 run
           if(param->run_type == TYPE_1){
@@ -183,4 +182,5 @@ void bbcCompress(struct blockSeg *param){
   fclose(param->colFile);
 
   free(param->curr_run);
+  printf("freed param->curr_run\n");
 }
