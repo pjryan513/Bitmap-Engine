@@ -14,6 +14,8 @@
 #define WAH 0
 #define VAL 1
 #define BBC 2
+#define BBCv2 3
+#define BBEC 4
 #define UNSTRIPED 0
 #define STRIPED 1
 #define IN_CORE 0

@@ -28,4 +28,7 @@
 #include "BBCUtil.h"
 #include "ActiveRun.h"
 #include "BBCQuery.h"
+#include "Util.h"
+#include "BBEC.h"
+#include "BBC.h"
 #endif /* CORE_H */

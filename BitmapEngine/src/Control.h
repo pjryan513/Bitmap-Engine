@@ -13,7 +13,7 @@
 #define BLOCK_SIZE 32								//kB blocks (recommended: 32)
 #define MAX_NUM_THREADS 4								//define number of threads to use for compression (1,2,3,4)
 
-#define COMPRESSION BBC							//define compression type (WAH, VAL, or BBC)
+#define COMPRESSION BBEC							//define compression type (WAH, VAL, or BBC)
 #define WORD_LENGTH 32								//define compression word length (32/64)
 #define NUM_SEGS 1									//define number of segments per word to use (1/2/4 -> -1 runs optimal segment length)
 
@@ -55,6 +55,20 @@
 		typedef unsigned short word_read;
 	#endif
 #elif COMPRESSION == BBC //8 bit words
+	#define FLAG_BITS 0
+	#define WORD_READ_LENGTH 8
+	#define BASE_LEN 8
+	typedef unsigned char byte;
+	typedef unsigned char word_32;
+	typedef unsigned char word_read;
+#elif COMPRESSION == BBCv2 //8 bit words
+	#define FLAG_BITS 0
+	#define WORD_READ_LENGTH 8
+	#define BASE_LEN 8
+	typedef unsigned char byte;
+	typedef unsigned char word_32;
+	typedef unsigned char word_read;
+#elif COMPRESSION == BBEC //8 bit words
 	#define FLAG_BITS 0
 	#define WORD_READ_LENGTH 8
 	#define BASE_LEN 8

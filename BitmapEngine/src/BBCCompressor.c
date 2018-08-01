@@ -1,4 +1,3 @@
-/**Revisted Psudeo Code**/
 #include "Core.h"
 
 
@@ -8,7 +7,6 @@ void bbcCompress(struct blockSeg *param){
   int i;
   param->curr_run = (byte*) malloc(sizeof(byte)*100);
   param->curr_size = 0;
-  printf("finna print?\n");
   for(i = 0; i < param->size; i++)
   {
     //printf("starting bbccompress\n");

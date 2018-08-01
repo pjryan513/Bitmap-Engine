@@ -18,7 +18,7 @@ int main(int argc, char*argv[]) {
 			if(reformat(&argv[2])==0){
 				printf("Unsuccessful reformatting of %s\n",argv[2]);
 			}
-		}
+		} 
 		else if(strcmp(argv[1],"C")==0 && argc==5){//COMPRESSION
 			int n = atoi(argv[3]);//number of threads
 			if(n<1) return -1;
@@ -31,7 +31,7 @@ int main(int argc, char*argv[]) {
 			double time;
 
 			//run compression here
-			if(strcmp(argv[4],"UNSTRIPED")==0) time=compress(argv[2], UNSTRIPED,BBC,n);
+			if(strcmp(argv[4],"UNSTRIPED")==0) time=compress(argv[2], UNSTRIPED,BBEC,n);
 			else time=compress(argv[2], STRIPED,WAH,n);
 
 			printf("time: %f...",time);

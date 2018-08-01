@@ -16,7 +16,7 @@ typedef struct blockSeg{
 
 
 	////////////////////////////////////////////////////////////////
-	/*									Below section is for BBC									*/
+	/*				Below section is for BBC					  */
 	////////////////////////////////////////////////////////////////
 
 	byte *compressBytes; //the current block of uncompressed bytes

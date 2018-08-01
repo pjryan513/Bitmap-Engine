@@ -15,7 +15,10 @@ all :
 	gcc -Wall -c BBCCompressor.c
 	gcc -Wall -c ActiveRun.c
 	gcc -Wall -c BBCQuery.c
-	gcc -Wall -o main main.c ActiveWord.o Clock.o Query.o QueryUtil.o RawBitmapReader.o SegUtil.o VALCompressor.o VALQuery.o WAHCompressor.o WAHQuery.o Writer.o BBCUtil.o BBCCompressor.o ActiveRun.o BBCQuery.o -lpthread -lm
+	gcc -Wall -c Util.c
+	gcc -Wall -c BBC.c
+	gcc -Wall -c BBEC.c
+	gcc -Wall -o main main.c ActiveWord.o Clock.o Query.o QueryUtil.o RawBitmapReader.o SegUtil.o VALCompressor.o VALQuery.o WAHCompressor.o Util.o BBC.o BBEC.o WAHQuery.o Writer.o BBCUtil.o BBCCompressor.o ActiveRun.o BBCQuery.o -lpthread -lm
 
 # format bitmap
 # $ ./main F <bitmap_file>
