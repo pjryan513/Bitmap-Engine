@@ -502,6 +502,9 @@ void compressColumn(int col, int threadNum){
 		snprintf(writing,BUFF_SIZE,"%s%d.dat",compressed_path,col);
 
 		segs[threadNum]->colFile = fopen(writing,"wb");//open the respective file for writing
+		printf("segs->colFile: %s\n",segs[threadNum]->colFile);
+		printf("error: %s\n",strerror(errno));
+
 		int numWords = 0;
 
 		while(read==blockWords){//while we still can read
@@ -530,8 +533,8 @@ void compressColumn(int col, int threadNum){
 					//fclose(segs[threadNum]->colFile);//close the compressed file
 					printf("closed file*********\n");
 				}
-				//fclose(ptr);//close the uncompressed column data file
-				printf("closing files\n");
+				fclose(ptr);//close the uncompressed column data file
+				printf("closing files\n\n");
 				break;//and leave
 			}
 		}

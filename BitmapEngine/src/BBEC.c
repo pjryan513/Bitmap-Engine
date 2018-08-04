@@ -240,6 +240,7 @@ void storeCompressEx(runData *param)
         printf("HOLD ON: base and/or expo below zero, NOT GOOD\n");
       }
       follow_fill++;
+      free(bE);
     }
 
     if(num > 0)
@@ -253,8 +254,6 @@ void storeCompressEx(runData *param)
     {
       addCompressSeq(param, param->tail_store[i]);
     }
-
-
   }
 }
 
@@ -406,6 +405,7 @@ compressResult * bbecRun(byte * to_compress, int size){
 
   compressResult * retResult = param->compress;
 
+  free(param->tail_store);
   free(param);
 
   return retResult;
@@ -418,63 +418,51 @@ compressResult * bbecRun(byte * to_compress, int size){
 
 void compressUsingBBEC(struct blockSeg * param){
 
-  printf("\ntoCompress size: %d",param->size);
-  printf("\ntoCompress: ");
+  compressResult * result = bbecRun(param->toCompress, param->size); //compress the data
+
+  //////////////////////////////////////////////////////////////////////////////////
+  /*This part of the code is just for printing raw and compressed code for testing*/
+  
+  int printRaw = 0;
+  int printComp = 0;
   int i;
-  for(i = 0; i < param->size;i++)
+
+  if(printRaw)
   {
-    printf("%d",(int)param->toCompress[i]);
-    if(i < param->size-1)
+    printf("\ntoCompress size: %d",param->size);
+    printf("\ntoCompress: ");
+    for(i = 0; i < param->size;i++)
     {
-      printf(", ");
+      printf("%d",(int)param->toCompress[i]);
+      if(i < param->size-1)
+      {
+        printf(", ");
+      }
     }
   }
 
-  compressResult * result = bbecRun(param->toCompress, param->size);
-
-  printf("\ncompress size: %d",result->size);
-  printf("\nCompressed: ");
-  for(i = 0; i < result->size; i++)
+  if(printComp)
   {
-    printf("%d", (int)result->compressed_seq[i]);
-    if(i<result->size-1)
+    printf("\ncompress size: %d",result->size);
+    printf("\nCompressed: ");
+    for(i = 0; i < result->size; i++)
     {
-      printf(", ");
-    }
+      printf("%d", (int)result->compressed_seq[i]);
+      if(i<result->size-1)
+      {
+        printf(", ");
+      }
 
+    }
   }
   printf("\n");
 
-  fwrite(result->compressed_seq, 1, result->size,param->colFile);
-  /*int i;
-  int num = 1;
+  /////////////////////////////////////////////////////////////////////////////////
 
-  int write_to_file = 1;
+  fwrite(result->compressed_seq, 1, result->size, param->colFile); //write compressed data out
+  fclose(param->colFile);
 
-  printf("here\n");
-  if(write_to_file)
-  {
-    char new_dir[1024];
-    getcwd(new_dir, sizeof(new_dir));
-    strcat(new_dir,"/bbec_results");
-    mkdir(new_dir, 0777);
-
-    char * buf = (char *) malloc(sizeof(char) *100);
-    sprintf(buf,"/bbec_results/bbec_result%d.txt",num);
-    FILE *fp = fopen(buf,"w");
-    num++;
-
-    for(i = 0; i < result->size; i++)
-    {
-      fprintf(fp, "%x", (int)result->compressed_seq[i]);
-
-      if(i < result->size -1) fprintf(fp, " ");
-      //if(!(i % 10) && i != 0) fprintf(fp, "\n");
-    }
-
-    fclose(fp);
-    free(buf);
-    free(new_dir);
-  }*/
-
+  //free remaining heaped data
+  free(result->compressed_seq);
+  free(result);
 }
